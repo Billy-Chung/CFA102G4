@@ -7,9 +7,9 @@ public interface adoptMemberDAO_interface {
 	
 	public void update(adoptMemberVO adoptMember);
 	
-	public void delete(Integer adoptMebNo);
+	public void delete(Integer ADOPT_MEB_NO);
 	
-	public adoptMemberVO findByAdoptMebNoPK(Integer adoptMebNo);
+	public adoptMemberVO findByAdoptMebNoPK(Integer ADOPT_MEB_NO);
 	
 	public List<adoptMemberVO> getAllAdoptMeb();
 }
