@@ -1,14 +1,17 @@
 package com.adopt.model;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class adoptMemberDAO implements adoptMemberDAO_interface {
 	
-	private static final String SQL = "";
+	private static final String insertSQL = "insert into ADOPT_MEMBER (ADOPT_MEB_NAME,ADOPT_MEB_COMMENT,ADOPT_MEB_PHOTO,ADOPT_MEB_ADDRESS,ADOPT_MEB_PHONE,ADOPT_MEB_EMAIL,ADOPT_MEB_ACCOUNT,ADOPT_MEB_PASSWORD,ADOPT_MEB_STATE,ADOPT_MEB_AUTH,ADOPT_MEB_HOLIDAY,ADOPT_MEB_LIMIT) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	static {
 		try {
@@ -19,22 +22,41 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 	}
 
 
-	public void insert(adoptMemberVO adoptMember) {
+	public adoptMemberVO insert(adoptMemberVO adoptMember) {
 		Connection con = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null;		
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei", "David", "123456");
-			pstmt = con.prepareStatement(SQL);
+			String[] cols = { "ADOPT_MEB_NO" };
+			pstmt = con.prepareStatement(insertSQL,cols);			
 
-			
+			pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
+			pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
+			pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
+			pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
+			pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
+			pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
+			pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
+			pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
+			pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
+			pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
+			pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
+			pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				int key = rs.getInt(1);
+				System.out.println("自增主鍵值 = " + key + "(剛新增成功的會員編號)");
+			} else {
+				System.out.println("沒有自增主鍵值被建立 ");
+			}
+			
+			rs.close();		
 		} catch (SQLException se) {
-			se.printStackTrace();
-			// Clean up JDBC resources
+			se.printStackTrace();		
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -51,6 +73,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 				}
 			}
 		}
+		return adoptMember;
 	}
 
 	@Override
@@ -75,6 +98,45 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 	public List<adoptMemberVO> getAllAdoptMeb() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		
+		adoptMemberDAO_interface dao = new adoptMemberDAO();
+		adoptMemberVO adoptMemberVO1 = new adoptMemberVO();
+		
+		adoptMemberVO1.setADOPT_MEB_NAME("kitty");
+		adoptMemberVO1.setADOPT_MEB_COMMENT("我是kitty領養機構");
+		try {
+			byte[] pic = getPictureByteArray("images/adoptMember1.png");
+			adoptMemberVO1.setADOPT_MEB_PHOTO(pic);
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}		
+		adoptMemberVO1.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
+		adoptMemberVO1.setADOPT_MEB_PHONE("0987546695");
+		adoptMemberVO1.setADOPT_MEB_EMAIL("frtyed@gmail.com");
+		adoptMemberVO1.setADOPT_MEB_ACCOUNT("kitty123");
+		adoptMemberVO1.setADOPT_MEB_PASSWORD("123456");
+		adoptMemberVO1.setADOPT_MEB_STATE("1");
+		adoptMemberVO1.setADOPT_MEB_AUTH("1");
+		adoptMemberVO1.setADOPT_MEB_HOLIDAY("0111110");
+		adoptMemberVO1.setADOPT_MEB_LIMIT("000000003333333333000000");
+		adoptMemberVO adoptMember =  dao.insert(adoptMemberVO1);
+		System.out.println(adoptMember.getADOPT_MEB_NAME());
+		
+		
+		
+		
+		
+	}
+	
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		FileInputStream fis = new FileInputStream(path);
+		byte[] buffer = new byte[fis.available()];
+		fis.read(buffer);
+		fis.close();
+		return buffer;
 	}
 
 }

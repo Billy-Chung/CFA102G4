@@ -3,7 +3,7 @@ package com.adopt.model;
 import java.util.List;
 
 public interface adoptMemberDAO_interface {
-	public void insert(adoptMemberVO adoptMember);
+	public adoptMemberVO insert(adoptMemberVO adoptMember);
 	
 	public void update(adoptMemberVO adoptMember);
 	
