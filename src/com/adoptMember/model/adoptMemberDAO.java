@@ -57,61 +57,15 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 	@Override
 	public adoptMemberVO findByAdoptMebNoPK(Integer ADOPT_MEB_NO) {
 		adoptMemberVO adoptMember = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei",
-					"David", "123456");
-			pstmt = con.prepareStatement(findByPK);
-			pstmt.setInt(1, ADOPT_MEB_NO);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				adoptMember = new adoptMemberVO();
-				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
-				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
-				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
-				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
-				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
-				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
-				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
-				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
-				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
-				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
-				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
-
-			}
-
-		} catch (SQLException se) {
+		
+		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
+			PreparedStatement pstmt = con.prepareStatement(findByPK);
+			pstmt.setInt(1, ADOPT_MEB_NO);				
+			ResultSet rs = pstmt.executeQuery();
+			adoptMember = selectOneAdoptMemberByNo(rs);
+		}  catch (SQLException se) {
 			se.printStackTrace();
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
+		}	
 		return adoptMember;
 	}
 	
@@ -119,123 +73,32 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 	@Override
 	public List<adoptMemberVO> findByAdoptMebName(String ADOPT_MEB_NAME) {
-		List<adoptMemberVO> adoptMemberList = new ArrayList<>();
-		adoptMemberVO adoptMember = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		List<adoptMemberVO> adoptMemberList  = new ArrayList<>();
 		
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei",
-					"David", "123456");
-			pstmt = con.prepareStatement(findByName);
-			pstmt.setString(1, "%" + ADOPT_MEB_NAME + "%");		
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				adoptMember = new adoptMemberVO();
-				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
-				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
-				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
-				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
-				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
-				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
-				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
-				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
-				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
-				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
-				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
-				adoptMemberList.add(adoptMember);
-			}
-
-		} catch (SQLException se) {
+		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
+			PreparedStatement pstmt = con.prepareStatement(findByName);
+			pstmt.setString(1, "%" + ADOPT_MEB_NAME + "%");				
+			ResultSet rs = pstmt.executeQuery();
+			adoptMemberList = selectOneAdoptMemberByName(adoptMemberList,rs);
+		}  catch (SQLException se) {
 			se.printStackTrace();
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		
+		}	
 		return adoptMemberList;
-	}
+	}		
+		
+	
+	
 
 	@Override
 	public List<adoptMemberVO> getAllAdoptMeb() {
 		List<adoptMemberVO> adoptMemberList = new ArrayList<>();
-		adoptMemberVO adoptMember = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei",
-					"David", "123456");
-			pstmt = con.prepareStatement(selectAll);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				adoptMember = new adoptMemberVO();
-				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
-				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
-				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
-				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
-				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
-				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
-				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
-				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
-				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
-				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
-				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
-				adoptMemberList.add(adoptMember);
-			}
-
-		} catch (SQLException se) {
+		
+		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
+			PreparedStatement pstmt = con.prepareStatement(selectAll);						
+			ResultSet rs = pstmt.executeQuery();
+			adoptMemberList = selectAllAdoptMember(adoptMemberList,rs);
+		}  catch (SQLException se) {
 			se.printStackTrace();
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
 		}
 		return adoptMemberList;
 	}
@@ -277,6 +140,85 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		pstmt.setInt(13, adoptMember.getADOPT_MEB_NO());	    
 	    return pstmt;
 	}
+	
+
+	private adoptMemberVO selectOneAdoptMemberByNo (ResultSet rs) {		
+		adoptMemberVO adoptMember = new adoptMemberVO();
+		try {
+			while (rs.next()) {				
+				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
+				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
+				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
+				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
+				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
+				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
+				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
+				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
+				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
+				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
+				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
+				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
+
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}
+		
+		return adoptMember;
+	}
+	
+	private List<adoptMemberVO> selectOneAdoptMemberByName(List<adoptMemberVO> adoptMemberList,ResultSet rs){
+		
+		try {
+			while (rs.next()) {
+				adoptMemberVO adoptMember = new adoptMemberVO();
+				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
+				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
+				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
+				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
+				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
+				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
+				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
+				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
+				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
+				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
+				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
+				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
+				adoptMemberList.add(adoptMember);
+			}
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		}
+		
+		return adoptMemberList;  
+	}
+	
+	
+	private List<adoptMemberVO> selectAllAdoptMember(List<adoptMemberVO> adoptMemberList,ResultSet rs){
+		
+		try {
+			while (rs.next()) {
+				adoptMemberVO adoptMember = new adoptMemberVO();
+				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
+				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
+				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
+				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
+				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
+				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
+				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
+				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
+				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
+				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
+				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
+				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
+				adoptMemberList.add(adoptMember);
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}		
+		return adoptMemberList;
+	}
+	
 
 	public static void main(String[] args) {
 //		insert test
@@ -306,33 +248,33 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 // 		update test
 		
-		adoptMemberDAO_interface dao = new adoptMemberDAO();
-		adoptMemberVO adoptMemberVO2 = new adoptMemberVO();
-		
-		adoptMemberVO2.setADOPT_MEB_NAME("mos");
-		adoptMemberVO2.setADOPT_MEB_COMMENT("我是mos領養機構");
-		try {
-			byte[] pic = getPictureByteArray("images/adoptMember2.jpg");
-			adoptMemberVO2.setADOPT_MEB_PHOTO(pic);
-		} catch (IOException e) {			
-			e.printStackTrace();
-		}		
-		adoptMemberVO2.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
-		adoptMemberVO2.setADOPT_MEB_PHONE("0987546695");
-		adoptMemberVO2.setADOPT_MEB_EMAIL("frtyed@gmail.com");
-		adoptMemberVO2.setADOPT_MEB_ACCOUNT("kitty123");
-		adoptMemberVO2.setADOPT_MEB_PASSWORD("123456");
-		adoptMemberVO2.setADOPT_MEB_STATE("1");
-		adoptMemberVO2.setADOPT_MEB_AUTH("1");
-		adoptMemberVO2.setADOPT_MEB_HOLIDAY("0111110");
-		adoptMemberVO2.setADOPT_MEB_LIMIT("000000003333333333000000");
-		adoptMemberVO2.setADOPT_MEB_NO(3);
-		dao.update(adoptMemberVO2);		
+//		adoptMemberDAO_interface dao = new adoptMemberDAO();
+//		adoptMemberVO adoptMemberVO2 = new adoptMemberVO();
+//		
+//		adoptMemberVO2.setADOPT_MEB_NAME("mos");
+//		adoptMemberVO2.setADOPT_MEB_COMMENT("我是mos領養機構");
+//		try {
+//			byte[] pic = getPictureByteArray("images/adoptMember2.jpg");
+//			adoptMemberVO2.setADOPT_MEB_PHOTO(pic);
+//		} catch (IOException e) {			
+//			e.printStackTrace();
+//		}		
+//		adoptMemberVO2.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
+//		adoptMemberVO2.setADOPT_MEB_PHONE("0987546695");
+//		adoptMemberVO2.setADOPT_MEB_EMAIL("frtyed@gmail.com");
+//		adoptMemberVO2.setADOPT_MEB_ACCOUNT("kitty123");
+//		adoptMemberVO2.setADOPT_MEB_PASSWORD("123456");
+//		adoptMemberVO2.setADOPT_MEB_STATE("1");
+//		adoptMemberVO2.setADOPT_MEB_AUTH("1");
+//		adoptMemberVO2.setADOPT_MEB_HOLIDAY("0111110");
+//		adoptMemberVO2.setADOPT_MEB_LIMIT("000000003333333333000000");
+//		adoptMemberVO2.setADOPT_MEB_NO(3);
+//		dao.update(adoptMemberVO2);		
 
 //		find by PK test
 		
 //		adoptMemberDAO_interface dao = new adoptMemberDAO();
-//		adoptMemberVO adoptMemberVO3 = dao.findByAdoptMebNoPK(3);
+//		adoptMemberVO adoptMemberVO3 = dao.findByAdoptMebNoPK(2);
 //		System.out.print(adoptMemberVO3.getADOPT_MEB_NAME() + ",");
 //		System.out.print(adoptMemberVO3.getADOPT_MEB_COMMENT() + ",");
 //		System.out.print(adoptMemberVO3.getADOPT_MEB_PHOTO() + ",");
@@ -368,23 +310,23 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 //		select All test
 		
-//		adoptMemberDAO_interface dao = new adoptMemberDAO();
-//		ADOPList<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
-//		for (adoptMemberVO adoptMember4 : adoptMemberList) {
-//			System.out.print(adoptMember4.getADOPT_MEB_NAME() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_COMMENT + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_PHOTO() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_ADDRESS() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_PHONE() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_EMAIL() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_ACCOUNT() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_PASSWORD() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_STATE() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_AUTH() + ",");
-//			System.out.print(adoptMember4.getADOPT_MEB_HOLIDAY() + ",");
-//			System.out.println(adoptMember4.getADOPT_MEB_LIMIT() + ",");
-//			System.out.println("---------------------");
-//		}
+		adoptMemberDAO_interface dao = new adoptMemberDAO();
+		List<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
+		for (adoptMemberVO adoptMember4 : adoptMemberList) {
+			System.out.print(adoptMember4.getADOPT_MEB_NAME() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_COMMENT() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_PHOTO() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_ADDRESS() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_PHONE() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_EMAIL() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_ACCOUNT() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_PASSWORD() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_STATE() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_AUTH() + ",");
+			System.out.print(adoptMember4.getADOPT_MEB_HOLIDAY() + ",");
+			System.out.println(adoptMember4.getADOPT_MEB_LIMIT() + ",");
+			System.out.println("---------------------");
+		}
 
 	}
 
