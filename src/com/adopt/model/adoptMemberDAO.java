@@ -54,6 +54,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 			if (rs.next()) {
 				int key = rs.getInt(1);
 				System.out.println("自增主鍵值 = " + key + "(剛新增成功的會員編號)");
+				adoptMember.setADOPT_MEB_NO(key);
 			} else {
 				System.out.println("沒有自增主鍵值被建立 ");
 			}
@@ -252,28 +253,28 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 	public static void main(String[] args) {
 //		insert test
 		
-//		adoptMemberDAO_interface dao = new adoptMemberDAO();
-//		adoptMemberVO adoptMemberVO1 = new adoptMemberVO();
-//		
-//		adoptMemberVO1.setADOPT_MEB_NAME("kitty");
-//		adoptMemberVO1.setADOPT_MEB_COMMENT("我是kitty領養機構");
-//		try {
-//			byte[] pic = getPictureByteArray("images/adoptMember1.png");
-//			adoptMemberVO1.setADOPT_MEB_PHOTO(pic);
-//		} catch (IOException e) {			
-//			e.printStackTrace();
-//		}		
-//		adoptMemberVO1.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
-//		adoptMemberVO1.setADOPT_MEB_PHONE("0987546695");
-//		adoptMemberVO1.setADOPT_MEB_EMAIL("frtyed@gmail.com");
-//		adoptMemberVO1.setADOPT_MEB_ACCOUNT("kitty123");
-//		adoptMemberVO1.setADOPT_MEB_PASSWORD("123456");
-//		adoptMemberVO1.setADOPT_MEB_STATE("1");
-//		adoptMemberVO1.setADOPT_MEB_AUTH("1");
-//		adoptMemberVO1.setADOPT_MEB_HOLIDAY("0111110");
-//		adoptMemberVO1.setADOPT_MEB_LIMIT("000000003333333333000000");
-//		adoptMemberVO adoptMember =  dao.insert(adoptMemberVO1);
-//		System.out.println(adoptMember.getADOPT_MEB_NAME());
+		adoptMemberDAO_interface dao = new adoptMemberDAO();
+		adoptMemberVO adoptMemberVO1 = new adoptMemberVO();
+		
+		adoptMemberVO1.setADOPT_MEB_NAME("kitty");
+		adoptMemberVO1.setADOPT_MEB_COMMENT("我是kitty領養機構");
+		try {
+			byte[] pic = getPictureByteArray("images/adoptMember1.png");
+			adoptMemberVO1.setADOPT_MEB_PHOTO(pic);
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}		
+		adoptMemberVO1.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
+		adoptMemberVO1.setADOPT_MEB_PHONE("0987546695");
+		adoptMemberVO1.setADOPT_MEB_EMAIL("frtyed@gmail.com");
+		adoptMemberVO1.setADOPT_MEB_ACCOUNT("kitty123");
+		adoptMemberVO1.setADOPT_MEB_PASSWORD("123456");
+		adoptMemberVO1.setADOPT_MEB_STATE("1");
+		adoptMemberVO1.setADOPT_MEB_AUTH("1");
+		adoptMemberVO1.setADOPT_MEB_HOLIDAY("0111110");
+		adoptMemberVO1.setADOPT_MEB_LIMIT("000000003333333333000000");
+		adoptMemberVO adoptMember =  dao.insert(adoptMemberVO1);
+		System.out.println(adoptMember.getADOPT_MEB_NO());
 
 // 		update test
 		
@@ -320,23 +321,23 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 //		select All test
 		
-		adoptMemberDAO_interface dao = new adoptMemberDAO();
-		List<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
-		for (adoptMemberVO adoptMember4 : adoptMemberList) {
-			System.out.print(adoptMember4.getADOPT_MEB_NAME() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_COMMENT() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_PHOTO() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_ADDRESS() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_PHONE() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_EMAIL() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_ACCOUNT() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_PASSWORD() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_STATE() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_AUTH() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_HOLIDAY() + ",");
-			System.out.println(adoptMember4.getADOPT_MEB_LIMIT() + ",");
-			System.out.println("---------------------");
-		}
+//		adoptMemberDAO_interface dao = new adoptMemberDAO();
+//		List<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
+//		for (adoptMemberVO adoptMember4 : adoptMemberList) {
+//			System.out.print(adoptMember4.getADOPT_MEB_NAME() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_COMMENT() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_PHOTO() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_ADDRESS() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_PHONE() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_EMAIL() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_ACCOUNT() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_PASSWORD() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_STATE() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_AUTH() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_HOLIDAY() + ",");
+//			System.out.println(adoptMember4.getADOPT_MEB_LIMIT() + ",");
+//			System.out.println("---------------------");
+//		}
 
 	}
 
