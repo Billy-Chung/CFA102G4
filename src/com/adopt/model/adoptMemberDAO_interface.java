@@ -9,5 +9,7 @@ public interface adoptMemberDAO_interface {
 
 	public adoptMemberVO findByAdoptMebNoPK(Integer ADOPT_MEB_NO);
 	
+	public List<adoptMemberVO> findByAdoptMebName(String ADOPT_MEB_NAME);
+	
 	public List<adoptMemberVO> getAllAdoptMeb();
 }
