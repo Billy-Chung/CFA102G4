@@ -34,6 +34,14 @@ public class adoptMemberNewsDAO implements adoptMemberNews_interface {
 		return null;
 	}
 
+	
+	
+	@Override
+	public List<adoptMemberNewsVo> findByAdoptMebNewsTitle(String ADOPT_MEB_NEWS_TITLE) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public List<adoptMemberNewsVo> getAlladoptMemberNews() {
 		// TODO Auto-generated method stub

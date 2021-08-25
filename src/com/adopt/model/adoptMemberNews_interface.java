@@ -10,5 +10,7 @@ public interface adoptMemberNews_interface {
 
 	public adoptMemberNewsVo findByadoptMemberNewsNoPK(Integer ADOPT_MEB_NEWS_NO);
 	
+	public List<adoptMemberNewsVo> findByAdoptMebNewsTitle(String ADOPT_MEB_NEWS_TITLE);
+	
 	public List<adoptMemberNewsVo> getAlladoptMemberNews();
 }
