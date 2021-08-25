@@ -1,4 +1,4 @@
-package com.adopt.model;
+package com.adoptMember.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class adoptMemberDAO implements adoptMemberDAO_interface {
-
+	
+	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
+	private static final String SQLUSER = "David";
+	private static final String SQLPASSWORD = "123456";
 	private static final String insertSQL = "insert into ADOPT_MEMBER (ADOPT_MEB_NAME,ADOPT_MEB_COMMENT,ADOPT_MEB_PHOTO,ADOPT_MEB_ADDRESS,ADOPT_MEB_PHONE,ADOPT_MEB_EMAIL,ADOPT_MEB_ACCOUNT,ADOPT_MEB_PASSWORD,ADOPT_MEB_STATE,ADOPT_MEB_AUTH,ADOPT_MEB_HOLIDAY,ADOPT_MEB_LIMIT) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String updateSQL = "update ADOPT_MEMBER set ADOPT_MEB_NAME = ?, ADOPT_MEB_COMMENT = ?, ADOPT_MEB_PHOTO = ?, ADOPT_MEB_ADDRESS = ?, ADOPT_MEB_PHONE = ?, ADOPT_MEB_EMAIL = ?, ADOPT_MEB_ACCOUNT = ?, ADOPT_MEB_PASSWORD = ?, ADOPT_MEB_STATE = ?, ADOPT_MEB_AUTH = ?, ADOPT_MEB_HOLIDAY = ?, ADOPT_MEB_LIMIT = ? where ADOPT_MEB_NO = ?";
 	private static final String findByPK = "SELECT * FROM ADOPT_MEMBER WHERE ADOPT_MEB_NO = ?";
@@ -26,106 +29,29 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		}
 	}
 
-	public adoptMemberVO insert(adoptMemberVO adoptMember) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei",
-					"David", "123456");
-			String[] cols = { "ADOPT_MEB_NO" };
-			pstmt = con.prepareStatement(insertSQL, cols);
-
-			pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
-			pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
-			pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
-			pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
-			pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
-			pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
-			pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
-			pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
-			pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
-			pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
-			pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
-			pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
-
-			pstmt.executeUpdate();
-
+	public adoptMemberVO insert(adoptMemberVO adoptMember) {		
+		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){
+			String[] cols = { "ADOPT_MEB_NO" };			
+			PreparedStatement pstmt = createInsertPreparedStatement(con,adoptMember,insertSQL, cols);
+			pstmt.executeUpdate();			
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				int key = rs.getInt(1);
 				adoptMember.setADOPT_MEB_NO(key);
-			} else {
-				System.out.println("沒有自增主鍵值被建立 ");
-			}
-
-			rs.close();
-		} catch (SQLException se) {
+			} 
+		}  catch (SQLException se) {
 			se.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+		}	
 		return adoptMember;
 	}
 
-	@Override
-	public void update(adoptMemberVO adoptMember) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei",
-					"David", "123456");
-			pstmt = con.prepareStatement(updateSQL);
-
-			pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
-			pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
-			pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
-			pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
-			pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
-			pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
-			pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
-			pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
-			pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
-			pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
-			pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
-			pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
-			pstmt.setInt(13, adoptMember.getADOPT_MEB_NO());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
+	public void update(adoptMemberVO adoptMember) {		
+		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
+			PreparedStatement pstmt = createUpdatePreparedStatement(con,adoptMember,updateSQL);
+			pstmt.executeUpdate();	
+		}  catch (SQLException se) {
 			se.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-
+		}	
 	}
 
 	@Override
@@ -313,6 +239,44 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		}
 		return adoptMemberList;
 	}
+	
+	private PreparedStatement createInsertPreparedStatement(Connection con, adoptMemberVO adoptMember, String SQL, String[] cols) throws SQLException {
+		   
+	    PreparedStatement pstmt = con.prepareStatement(SQL,cols);
+	    pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
+		pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
+		pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
+		pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
+		pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
+		pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
+		pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
+		pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
+		pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
+		pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
+		pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
+		pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
+	    return pstmt;
+	}
+	
+	
+	private PreparedStatement createUpdatePreparedStatement(Connection con, adoptMemberVO adoptMember, String SQL) throws SQLException {
+		   
+	    PreparedStatement pstmt = con.prepareStatement(SQL);	    
+	    pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
+		pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
+		pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
+		pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
+		pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
+		pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
+		pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
+		pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
+		pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
+		pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
+		pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
+		pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
+		pstmt.setInt(13, adoptMember.getADOPT_MEB_NO());	    
+	    return pstmt;
+	}
 
 	public static void main(String[] args) {
 //		insert test
@@ -342,28 +306,28 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 // 		update test
 		
-//		adoptMemberDAO_interface dao = new adoptMemberDAO();
-//		adoptMemberVO adoptMemberVO2 = new adoptMemberVO();
-//		
-//		adoptMemberVO2.setADOPT_MEB_NAME("mos");
-//		adoptMemberVO2.setADOPT_MEB_COMMENT("我是mos領養機構");
-//		try {
-//			byte[] pic = getPictureByteArray("images/adoptMember2.jpg");
-//			adoptMemberVO2.setADOPT_MEB_PHOTO(pic);
-//		} catch (IOException e) {			
-//			e.printStackTrace();
-//		}		
-//		adoptMemberVO2.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
-//		adoptMemberVO2.setADOPT_MEB_PHONE("0987546695");
-//		adoptMemberVO2.setADOPT_MEB_EMAIL("frtyed@gmail.com");
-//		adoptMemberVO2.setADOPT_MEB_ACCOUNT("kitty123");
-//		adoptMemberVO2.setADOPT_MEB_PASSWORD("123456");
-//		adoptMemberVO2.setADOPT_MEB_STATE("1");
-//		adoptMemberVO2.setADOPT_MEB_AUTH("1");
-//		adoptMemberVO2.setADOPT_MEB_HOLIDAY("0111110");
-//		adoptMemberVO2.setADOPT_MEB_LIMIT("000000003333333333000000");
-//		adoptMemberVO2.setADOPT_MEB_NO(3);
-//		dao.update(adoptMemberVO2);		
+		adoptMemberDAO_interface dao = new adoptMemberDAO();
+		adoptMemberVO adoptMemberVO2 = new adoptMemberVO();
+		
+		adoptMemberVO2.setADOPT_MEB_NAME("mos");
+		adoptMemberVO2.setADOPT_MEB_COMMENT("我是mos領養機構");
+		try {
+			byte[] pic = getPictureByteArray("images/adoptMember2.jpg");
+			adoptMemberVO2.setADOPT_MEB_PHOTO(pic);
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}		
+		adoptMemberVO2.setADOPT_MEB_ADDRESS("桃園市中壢區復興路8號4樓");
+		adoptMemberVO2.setADOPT_MEB_PHONE("0987546695");
+		adoptMemberVO2.setADOPT_MEB_EMAIL("frtyed@gmail.com");
+		adoptMemberVO2.setADOPT_MEB_ACCOUNT("kitty123");
+		adoptMemberVO2.setADOPT_MEB_PASSWORD("123456");
+		adoptMemberVO2.setADOPT_MEB_STATE("1");
+		adoptMemberVO2.setADOPT_MEB_AUTH("1");
+		adoptMemberVO2.setADOPT_MEB_HOLIDAY("0111110");
+		adoptMemberVO2.setADOPT_MEB_LIMIT("000000003333333333000000");
+		adoptMemberVO2.setADOPT_MEB_NO(3);
+		dao.update(adoptMemberVO2);		
 
 //		find by PK test
 		
@@ -384,23 +348,23 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 //		System.out.println("---------------------");
 		
 //		find by name test
-		adoptMemberDAO_interface dao = new adoptMemberDAO();
-		List<adoptMemberVO> adoptMemberList = dao.findByAdoptMebName("M");	
-		for (adoptMemberVO adoptMember5 : adoptMemberList) {			
-			System.out.print(adoptMember5.getADOPT_MEB_NAME() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_COMMENT() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_PHOTO() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_ADDRESS() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_PHONE() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_EMAIL() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_ACCOUNT() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_PASSWORD() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_STATE() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_AUTH() + ",");
-			System.out.print(adoptMember5.getADOPT_MEB_HOLIDAY() + ",");
-			System.out.println(adoptMember5.getADOPT_MEB_LIMIT() + ",");
-			System.out.println("---------------------");
-		}
+//		adoptMemberDAO_interface dao = new adoptMemberDAO();
+//		List<adoptMemberVO> adoptMemberList = dao.findByAdoptMebName("M");	
+//		for (adoptMemberVO adoptMember5 : adoptMemberList) {			
+//			System.out.print(adoptMember5.getADOPT_MEB_NAME() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_COMMENT() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_PHOTO() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_ADDRESS() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_PHONE() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_EMAIL() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_ACCOUNT() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_PASSWORD() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_STATE() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_AUTH() + ",");
+//			System.out.print(adoptMember5.getADOPT_MEB_HOLIDAY() + ",");
+//			System.out.println(adoptMember5.getADOPT_MEB_LIMIT() + ",");
+//			System.out.println("---------------------");
+//		}
 
 //		select All test
 		

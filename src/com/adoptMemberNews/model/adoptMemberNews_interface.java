@@ -1,4 +1,4 @@
-package com.adopt.model;
+package com.adoptMemberNews.model;
 
 import java.util.List;
 
