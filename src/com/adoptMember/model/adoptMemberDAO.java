@@ -79,7 +79,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 			PreparedStatement pstmt = con.prepareStatement(findByName);
 			pstmt.setString(1, "%" + ADOPT_MEB_NAME + "%");				
 			ResultSet rs = pstmt.executeQuery();
-			adoptMemberList = selectOneAdoptMemberByName(adoptMemberList,rs);
+			adoptMemberList = selectAdoptMemberByName(adoptMemberList,rs);
 		}  catch (SQLException se) {
 			se.printStackTrace();
 		}	
@@ -146,6 +146,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		adoptMemberVO adoptMember = new adoptMemberVO();
 		try {
 			while (rs.next()) {				
+				adoptMember.setADOPT_MEB_NO(rs.getInt("ADOPT_MEB_NO"));
 				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
 				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
 				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
@@ -167,7 +168,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		return adoptMember;
 	}
 	
-	private List<adoptMemberVO> selectOneAdoptMemberByName(List<adoptMemberVO> adoptMemberList,ResultSet rs){
+	private List<adoptMemberVO> selectAdoptMemberByName(List<adoptMemberVO> adoptMemberList,ResultSet rs){
 		
 		try {
 			while (rs.next()) {
@@ -273,21 +274,22 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 //		find by PK test
 		
-//		adoptMemberDAO_interface dao = new adoptMemberDAO();
-//		adoptMemberVO adoptMemberVO3 = dao.findByAdoptMebNoPK(2);
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_NAME() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_COMMENT() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_PHOTO() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_ADDRESS() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_PHONE() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_EMAIL() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_ACCOUNT() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_PASSWORD() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_STATE() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_AUTH() + ",");
-//		System.out.print(adoptMemberVO3.getADOPT_MEB_HOLIDAY() + ",");
-//		System.out.println(adoptMemberVO3.getADOPT_MEB_LIMIT() + ",");	
-//		System.out.println("---------------------");
+		adoptMemberDAO_interface dao = new adoptMemberDAO();
+		adoptMemberVO adoptMemberVO3 = dao.findByAdoptMebNoPK(2);
+		System.out.print(adoptMemberVO3.getADOPT_MEB_NAME() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_NAME() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_COMMENT() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_PHOTO() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_ADDRESS() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_PHONE() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_EMAIL() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_ACCOUNT() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_PASSWORD() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_STATE() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_AUTH() + ",");
+		System.out.print(adoptMemberVO3.getADOPT_MEB_HOLIDAY() + ",");
+		System.out.println(adoptMemberVO3.getADOPT_MEB_LIMIT() + ",");	
+		System.out.println("---------------------");
 		
 //		find by name test
 //		adoptMemberDAO_interface dao = new adoptMemberDAO();
@@ -310,23 +312,23 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 
 //		select All test
 		
-		adoptMemberDAO_interface dao = new adoptMemberDAO();
-		List<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
-		for (adoptMemberVO adoptMember4 : adoptMemberList) {
-			System.out.print(adoptMember4.getADOPT_MEB_NAME() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_COMMENT() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_PHOTO() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_ADDRESS() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_PHONE() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_EMAIL() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_ACCOUNT() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_PASSWORD() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_STATE() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_AUTH() + ",");
-			System.out.print(adoptMember4.getADOPT_MEB_HOLIDAY() + ",");
-			System.out.println(adoptMember4.getADOPT_MEB_LIMIT() + ",");
-			System.out.println("---------------------");
-		}
+//		adoptMemberDAO_interface dao = new adoptMemberDAO();
+//		List<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
+//		for (adoptMemberVO adoptMember4 : adoptMemberList) {
+//			System.out.print(adoptMember4.getADOPT_MEB_NAME() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_COMMENT() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_PHOTO() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_ADDRESS() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_PHONE() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_EMAIL() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_ACCOUNT() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_PASSWORD() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_STATE() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_AUTH() + ",");
+//			System.out.print(adoptMember4.getADOPT_MEB_HOLIDAY() + ",");
+//			System.out.println(adoptMember4.getADOPT_MEB_LIMIT() + ",");
+//			System.out.println("---------------------");
+//		}
 
 	}
 
