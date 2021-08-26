@@ -63,8 +63,7 @@ public class adoptPetPhotoDAO implements adoptPetPhoto_interface {
 			pstmt.executeUpdate();	
 		}  catch (SQLException se) {
 			se.printStackTrace();
-		}	
-		
+		}			
 	}
 	
 	private PreparedStatement createUpdatePreparedStatement (Connection con,adoptPetPhotoVO adoptPetPhoto,String SQL) throws SQLException {
