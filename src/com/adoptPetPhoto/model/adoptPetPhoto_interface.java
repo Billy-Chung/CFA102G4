@@ -10,5 +10,4 @@ public interface adoptPetPhoto_interface {
 
 	public List<adoptPetPhotoVO> findByadoptPetNo(Integer ADOPT_PET_NO);
 	
-	public List<adoptPetPhotoVO> getAlladoptPetPhoto();
 }
