@@ -1,0 +1,16 @@
+package com.adoptMemberNews.model;
+
+import java.util.List;
+
+public interface adoptMemberNews_interface {
+	
+	public adoptMemberNewsVo insert(adoptMemberNewsVo adoptMemberNews);
+	
+	public void update(adoptMemberNewsVo adoptMemberNews);
+
+	public adoptMemberNewsVo findByadoptMemberNewsNoPK(Integer ADOPT_MEB_NEWS_NO);
+	
+	public List<adoptMemberNewsVo> findByAdoptMebNewsTitle(String ADOPT_MEB_NEWS_TITLE);
+	
+	public List<adoptMemberNewsVo> getAlladoptMemberNews();
+}
