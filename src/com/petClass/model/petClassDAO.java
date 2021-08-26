@@ -44,13 +44,7 @@ public class petClassDAO implements petClasss_interface {
 		return petClass;
 	}
 
-	public PreparedStatement createInsertPreparedStatement(Connection con, petClassVO petClass, String SQL,
-			String[] cols) throws SQLException {
-		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
-		pstmt.setString(1, petClass.getPET_CLASS_NAME());
-		pstmt.setString(2, petClass.getPET_CLASS_STATE());
-		return pstmt;
-	}
+	
 
 	@Override
 	public void update(petClassVO petClass) {
@@ -62,15 +56,7 @@ public class petClassDAO implements petClasss_interface {
 		}
 	}
 
-	public PreparedStatement createUpdatePreparedStatement(Connection con, petClassVO petClass, String SQL)
-			throws SQLException {
-		PreparedStatement pstmt = con.prepareStatement(SQL);
-		pstmt.setString(1, petClass.getPET_CLASS_NAME());
-		pstmt.setString(2, petClass.getPET_CLASS_STATE());
-		pstmt.setInt(3, petClass.getPET_CLASS_NO());
-		return pstmt;
-
-	}
+	
 
 	@Override
 	public petClassVO findBypetClassNo(Integer PET_CLASS_NO) {
@@ -87,19 +73,7 @@ public class petClassDAO implements petClasss_interface {
 		return petClass;
 	}
 
-	private petClassVO selectOneByPetClassNo(ResultSet rs) {
-		petClassVO petClass = new petClassVO();
-		try {
-			while (rs.next()) {
-				petClass.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
-				petClass.setPET_CLASS_NAME(rs.getString("PET_CLASS_NAME"));
-				petClass.setPET_CLASS_STATE(rs.getString("PET_CLASS_STATE"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return petClass;
-	}
+	
 
 	@Override
 	public List<petClassVO> getAllpetClass() {
@@ -115,22 +89,7 @@ public class petClassDAO implements petClasss_interface {
 		return petClassList;
 	}
 
-	public List<petClassVO> selectAllpetClass(List<petClassVO> petClassList, ResultSet rs) {
-
-		try {
-			while (rs.next()) {
-				petClassVO petClass = new petClassVO();
-				petClass.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
-				petClass.setPET_CLASS_NAME(rs.getString("PET_CLASS_NAME"));
-				petClass.setPET_CLASS_STATE(rs.getString("PET_CLASS_STATE"));
-				petClassList.add(petClass);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return petClassList;
-
-	}
+	
 
 	public static void main(String[] args) {
 		petClasss_interface dao = new petClassDAO();
@@ -163,6 +122,53 @@ public class petClassDAO implements petClasss_interface {
 			System.out.println(petClass.getPET_CLASS_STATE() + ",");				
 			System.out.println("---------------------");
 		}
+
+	}
+	
+	private PreparedStatement createInsertPreparedStatement(Connection con, petClassVO petClass, String SQL,
+			String[] cols) throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
+		pstmt.setString(1, petClass.getPET_CLASS_NAME());
+		pstmt.setString(2, petClass.getPET_CLASS_STATE());
+		return pstmt;
+	}
+	
+	private PreparedStatement createUpdatePreparedStatement(Connection con, petClassVO petClass, String SQL)
+			throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(SQL);
+		pstmt.setString(1, petClass.getPET_CLASS_NAME());
+		pstmt.setString(2, petClass.getPET_CLASS_STATE());
+		pstmt.setInt(3, petClass.getPET_CLASS_NO());
+		return pstmt;
+	}
+	
+	private petClassVO selectOneByPetClassNo(ResultSet rs) {
+		petClassVO petClass = new petClassVO();
+		try {
+			while (rs.next()) {
+				petClass.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
+				petClass.setPET_CLASS_NAME(rs.getString("PET_CLASS_NAME"));
+				petClass.setPET_CLASS_STATE(rs.getString("PET_CLASS_STATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return petClass;
+	}
+	
+	private List<petClassVO> selectAllpetClass(List<petClassVO> petClassList, ResultSet rs) {
+		try {
+			while (rs.next()) {
+				petClassVO petClass = new petClassVO();
+				petClass.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
+				petClass.setPET_CLASS_NAME(rs.getString("PET_CLASS_NAME"));
+				petClass.setPET_CLASS_STATE(rs.getString("PET_CLASS_STATE"));
+				petClassList.add(petClass);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return petClassList;
 
 	}
 
