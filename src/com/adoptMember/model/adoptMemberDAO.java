@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class adoptMemberDAO implements adoptMemberDAO_interface {
-	
+
 	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
 	private static final String SQLUSER = "David";
 	private static final String SQLPASSWORD = "123456";
@@ -29,201 +29,78 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		}
 	}
 
-	public adoptMemberVO insert(adoptMemberVO adoptMember) {		
-		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){
-			String[] cols = { "ADOPT_MEB_NO" };			
-			PreparedStatement pstmt = createInsertPreparedStatement(con,adoptMember,insertSQL, cols);
-			pstmt.executeUpdate();			
+	public adoptMemberVO insert(adoptMemberVO adoptMember) {
+		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+			String[] cols = { "ADOPT_MEB_NO" };
+			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptMember, insertSQL, cols);
+			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				int key = rs.getInt(1);
 				adoptMember.setADOPT_MEB_NO(key);
-			} 
-		}  catch (SQLException se) {
+			}
+		} catch (SQLException se) {
 			se.printStackTrace();
-		}	
+		}
 		return adoptMember;
 	}
 
-	public void update(adoptMemberVO adoptMember) {		
-		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
-			PreparedStatement pstmt = createUpdatePreparedStatement(con,adoptMember,updateSQL);
-			pstmt.executeUpdate();	
-		}  catch (SQLException se) {
+	public void update(adoptMemberVO adoptMember) {
+		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptMember, updateSQL);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
 			se.printStackTrace();
-		}	
+		}
 	}
 
 	@Override
 	public adoptMemberVO findByAdoptMebNoPK(Integer ADOPT_MEB_NO) {
 		adoptMemberVO adoptMember = null;
-		
-		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
+
+		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByPK);
-			pstmt.setInt(1, ADOPT_MEB_NO);				
+			pstmt.setInt(1, ADOPT_MEB_NO);
 			ResultSet rs = pstmt.executeQuery();
 			adoptMember = selectOneAdoptMemberByNo(rs);
-		}  catch (SQLException se) {
+		} catch (SQLException se) {
 			se.printStackTrace();
-		}	
+		}
 		return adoptMember;
 	}
-	
-	
 
 	@Override
 	public List<adoptMemberVO> findByAdoptMebName(String ADOPT_MEB_NAME) {
-		List<adoptMemberVO> adoptMemberList  = new ArrayList<>();
-		
-		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
+		List<adoptMemberVO> adoptMemberList = new ArrayList<>();
+
+		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByName);
-			pstmt.setString(1, "%" + ADOPT_MEB_NAME + "%");				
+			pstmt.setString(1, "%" + ADOPT_MEB_NAME + "%");
 			ResultSet rs = pstmt.executeQuery();
-			adoptMemberList = selectAdoptMemberByName(adoptMemberList,rs);
-		}  catch (SQLException se) {
+			adoptMemberList = selectAdoptMemberByName(adoptMemberList, rs);
+		} catch (SQLException se) {
 			se.printStackTrace();
-		}	
+		}
 		return adoptMemberList;
-	}		
-		
-	
-	
+	}
 
 	@Override
 	public List<adoptMemberVO> getAllAdoptMeb() {
 		List<adoptMemberVO> adoptMemberList = new ArrayList<>();
-		
-		try(Connection con = DriverManager.getConnection(SQLURL,SQLUSER,SQLPASSWORD)){					
-			PreparedStatement pstmt = con.prepareStatement(selectAll);						
+
+		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(selectAll);
 			ResultSet rs = pstmt.executeQuery();
-			adoptMemberList = selectAllAdoptMember(adoptMemberList,rs);
-		}  catch (SQLException se) {
+			adoptMemberList = selectAllAdoptMember(adoptMemberList, rs);
+		} catch (SQLException se) {
 			se.printStackTrace();
 		}
 		return adoptMemberList;
 	}
-	
-	private PreparedStatement createInsertPreparedStatement(Connection con, adoptMemberVO adoptMember, String SQL, String[] cols) throws SQLException {
-		   
-	    PreparedStatement pstmt = con.prepareStatement(SQL,cols);
-	    pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
-		pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
-		pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
-		pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
-		pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
-		pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
-		pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
-		pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
-		pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
-		pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
-		pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
-		pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
-	    return pstmt;
-	}
-	
-	
-	private PreparedStatement createUpdatePreparedStatement(Connection con, adoptMemberVO adoptMember, String SQL) throws SQLException {
-		   
-	    PreparedStatement pstmt = con.prepareStatement(SQL);	    
-	    pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
-		pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
-		pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
-		pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
-		pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
-		pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
-		pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
-		pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
-		pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
-		pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
-		pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
-		pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
-		pstmt.setInt(13, adoptMember.getADOPT_MEB_NO());	    
-	    return pstmt;
-	}
-	
-
-	private adoptMemberVO selectOneAdoptMemberByNo (ResultSet rs) {		
-		adoptMemberVO adoptMember = new adoptMemberVO();
-		try {
-			while (rs.next()) {				
-				adoptMember.setADOPT_MEB_NO(rs.getInt("ADOPT_MEB_NO"));
-				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
-				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
-				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
-				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
-				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
-				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
-				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
-				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
-				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
-				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
-				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
-
-			}
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}
-		
-		return adoptMember;
-	}
-	
-	private List<adoptMemberVO> selectAdoptMemberByName(List<adoptMemberVO> adoptMemberList,ResultSet rs){
-		
-		try {
-			while (rs.next()) {
-				adoptMemberVO adoptMember = new adoptMemberVO();
-				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
-				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
-				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
-				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
-				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
-				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
-				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
-				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
-				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
-				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
-				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
-				adoptMemberList.add(adoptMember);
-			}
-		} catch (SQLException e) {	
-			e.printStackTrace();
-		}
-		
-		return adoptMemberList;  
-	}
-	
-	
-	private List<adoptMemberVO> selectAllAdoptMember(List<adoptMemberVO> adoptMemberList,ResultSet rs){
-		
-		try {
-			while (rs.next()) {
-				adoptMemberVO adoptMember = new adoptMemberVO();
-				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
-				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
-				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
-				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
-				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
-				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
-				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
-				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
-				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
-				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
-				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
-				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
-				adoptMemberList.add(adoptMember);
-			}
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}		
-		return adoptMemberList;
-	}
-	
 
 	public static void main(String[] args) {
 //		insert test
-		
+
 //		adoptMemberDAO_interface dao = new adoptMemberDAO();
 //		adoptMemberVO adoptMemberVO1 = new adoptMemberVO();
 //		
@@ -248,7 +125,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 //		System.out.println(adoptMember.getADOPT_MEB_NO());
 
 // 		update test
-		
+
 //		adoptMemberDAO_interface dao = new adoptMemberDAO();
 //		adoptMemberVO adoptMemberVO2 = new adoptMemberVO();
 //		
@@ -273,7 +150,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 //		dao.update(adoptMemberVO2);		
 
 //		find by PK test
-		
+
 		adoptMemberDAO_interface dao = new adoptMemberDAO();
 		adoptMemberVO adoptMemberVO3 = dao.findByAdoptMebNoPK(2);
 		System.out.print(adoptMemberVO3.getADOPT_MEB_NAME() + ",");
@@ -288,9 +165,9 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		System.out.print(adoptMemberVO3.getADOPT_MEB_STATE() + ",");
 		System.out.print(adoptMemberVO3.getADOPT_MEB_AUTH() + ",");
 		System.out.print(adoptMemberVO3.getADOPT_MEB_HOLIDAY() + ",");
-		System.out.println(adoptMemberVO3.getADOPT_MEB_LIMIT() + ",");	
+		System.out.println(adoptMemberVO3.getADOPT_MEB_LIMIT() + ",");
 		System.out.println("---------------------");
-		
+
 //		find by name test
 //		adoptMemberDAO_interface dao = new adoptMemberDAO();
 //		List<adoptMemberVO> adoptMemberList = dao.findByAdoptMebName("M");	
@@ -311,7 +188,7 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 //		}
 
 //		select All test
-		
+
 //		adoptMemberDAO_interface dao = new adoptMemberDAO();
 //		List<adoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
 //		for (adoptMemberVO adoptMember4 : adoptMemberList) {
@@ -338,6 +215,122 @@ public class adoptMemberDAO implements adoptMemberDAO_interface {
 		fis.read(buffer);
 		fis.close();
 		return buffer;
+	}
+
+	private PreparedStatement createInsertPreparedStatement(Connection con, adoptMemberVO adoptMember, String SQL,
+			String[] cols) throws SQLException {
+
+		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
+		pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
+		pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
+		pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
+		pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
+		pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
+		pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
+		pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
+		pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
+		pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
+		pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
+		pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
+		pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
+		return pstmt;
+	}
+
+	private PreparedStatement createUpdatePreparedStatement(Connection con, adoptMemberVO adoptMember, String SQL)
+			throws SQLException {
+
+		PreparedStatement pstmt = con.prepareStatement(SQL);
+		pstmt.setString(1, adoptMember.getADOPT_MEB_NAME());
+		pstmt.setString(2, adoptMember.getADOPT_MEB_COMMENT());
+		pstmt.setBytes(3, adoptMember.getADOPT_MEB_PHOTO());
+		pstmt.setString(4, adoptMember.getADOPT_MEB_ADDRESS());
+		pstmt.setString(5, adoptMember.getADOPT_MEB_PHONE());
+		pstmt.setString(6, adoptMember.getADOPT_MEB_EMAIL());
+		pstmt.setString(7, adoptMember.getADOPT_MEB_ACCOUNT());
+		pstmt.setString(8, adoptMember.getADOPT_MEB_PASSWORD());
+		pstmt.setString(9, adoptMember.getADOPT_MEB_STATE());
+		pstmt.setString(10, adoptMember.getADOPT_MEB_AUTH());
+		pstmt.setString(11, adoptMember.getADOPT_MEB_HOLIDAY());
+		pstmt.setString(12, adoptMember.getADOPT_MEB_LIMIT());
+		pstmt.setInt(13, adoptMember.getADOPT_MEB_NO());
+		return pstmt;
+	}
+
+	private adoptMemberVO selectOneAdoptMemberByNo(ResultSet rs) {
+		adoptMemberVO adoptMember = new adoptMemberVO();
+		try {
+			while (rs.next()) {
+				adoptMember.setADOPT_MEB_NO(rs.getInt("ADOPT_MEB_NO"));
+				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
+				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
+				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
+				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
+				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
+				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
+				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
+				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
+				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
+				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
+				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
+				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return adoptMember;
+	}
+
+	private List<adoptMemberVO> selectAdoptMemberByName(List<adoptMemberVO> adoptMemberList, ResultSet rs) {
+
+		try {
+			while (rs.next()) {
+				adoptMemberVO adoptMember = new adoptMemberVO();
+				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
+				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
+				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
+				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
+				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
+				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
+				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
+				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
+				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
+				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
+				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
+				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
+				adoptMemberList.add(adoptMember);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return adoptMemberList;
+	}
+
+	private List<adoptMemberVO> selectAllAdoptMember(List<adoptMemberVO> adoptMemberList, ResultSet rs) {
+
+		try {
+			while (rs.next()) {
+				adoptMemberVO adoptMember = new adoptMemberVO();
+				adoptMember.setADOPT_MEB_NAME(rs.getString("ADOPT_MEB_NAME"));
+				adoptMember.setADOPT_MEB_COMMENT(rs.getString("ADOPT_MEB_COMMENT"));
+				adoptMember.setADOPT_MEB_PHOTO(rs.getBytes("ADOPT_MEB_PHOTO"));
+				adoptMember.setADOPT_MEB_ADDRESS(rs.getString("ADOPT_MEB_ADDRESS"));
+				adoptMember.setADOPT_MEB_PHONE(rs.getString("ADOPT_MEB_PHONE"));
+				adoptMember.setADOPT_MEB_EMAIL(rs.getString("ADOPT_MEB_EMAIL"));
+				adoptMember.setADOPT_MEB_ACCOUNT(rs.getString("ADOPT_MEB_ACCOUNT"));
+				adoptMember.setADOPT_MEB_PASSWORD(rs.getString("ADOPT_MEB_PASSWORD"));
+				adoptMember.setADOPT_MEB_STATE(rs.getString("ADOPT_MEB_STATE"));
+				adoptMember.setADOPT_MEB_AUTH(rs.getString("ADOPT_MEB_AUTH"));
+				adoptMember.setADOPT_MEB_HOLIDAY(rs.getString("ADOPT_MEB_HOLIDAY"));
+				adoptMember.setADOPT_MEB_LIMIT(rs.getString("ADOPT_MEB_LIMIT"));
+				adoptMemberList.add(adoptMember);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return adoptMemberList;
 	}
 
 }
