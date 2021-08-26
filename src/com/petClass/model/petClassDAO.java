@@ -6,10 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.adoptMemberNews.model.adoptMemberNewsVo;
-
+import java.util.List; 
 
 
 public class petClassDAO implements petClasss_interface {
