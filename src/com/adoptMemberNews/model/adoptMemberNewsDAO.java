@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adoptMember.model.adoptMemberVO;
 
 public class adoptMemberNewsDAO implements adoptMemberNews_interface {
 	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
