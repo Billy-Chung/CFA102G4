@@ -55,7 +55,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 	}
 
 	@Override
-	public AdoptMemberVO getFindByPK(Integer adopt_meb_no) {
+	public AdoptMemberVO findByAdoptMebNoPK(Integer adopt_meb_no) {
 		AdoptMemberVO adoptMember = null;
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
@@ -70,7 +70,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 	}
 
 	@Override
-	public List<AdoptMemberVO> getFindByName(String adopt_meb_name) {
+	public List<AdoptMemberVO> findByAdoptMebName(String adopt_meb_name) {
 		List<AdoptMemberVO> adoptMemberList = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
@@ -152,7 +152,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 //		find by PK test
 
 //		AdoptMemberDAO_interface dao = new AdoptMemberDAO();
-//		AdoptMemberVO AdoptMemberVO3 = dao.getFindByPK(2);
+//		AdoptMemberVO AdoptMemberVO3 = dao.findByAdoptMebNoPK(2);
 //		System.out.print(AdoptMemberVO3.getAdopt_meb_name() + ",");
 //		System.out.print(AdoptMemberVO3.getAdopt_meb_name() + ",");
 //		System.out.print(AdoptMemberVO3.getAdopt_meb_comment() + ",");
@@ -170,7 +170,7 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 
 //		find by name test
 //		AdoptMemberDAO_interface dao = new AdoptMemberDAO();
-//		List<AdoptMemberVO> adoptMemberList = dao.getFindByName("M");	
+//		List<AdoptMemberVO> adoptMemberList = dao.findByAdoptMebName("M");	
 //		for (AdoptMemberVO adoptMember5 : adoptMemberList) {			
 //			System.out.print(adoptMember5.getAdopt_meb_no() + ",");
 //			System.out.print(adoptMember5.getAdopt_meb_name() + ",");
@@ -190,23 +190,23 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 
 //		select All test
 
-		AdoptMemberDAO_interface dao = new AdoptMemberDAO();
-		List<AdoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
-		for (AdoptMemberVO adoptMember4 : adoptMemberList) {
-			System.out.print(adoptMember4.getAdopt_meb_name() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_comment() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_photo() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_address() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_phone() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_email() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_account() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_password() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_state() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_auth() + ",");
-			System.out.print(adoptMember4.getAdopt_meb_holiday() + ",");
-			System.out.println(adoptMember4.getAdopt_meb_limit() + ",");
-			System.out.println("---------------------");
-		}
+//		AdoptMemberDAO_interface dao = new AdoptMemberDAO();
+//		List<AdoptMemberVO> adoptMemberList = dao.getAllAdoptMeb();
+//		for (AdoptMemberVO adoptMember4 : adoptMemberList) {
+//			System.out.print(adoptMember4.getAdopt_meb_name() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_comment() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_photo() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_address() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_phone() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_email() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_account() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_password() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_state() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_auth() + ",");
+//			System.out.print(adoptMember4.getAdopt_meb_holiday() + ",");
+//			System.out.println(adoptMember4.getAdopt_meb_limit() + ",");
+//			System.out.println("---------------------");
+//		}
 
 	}
 

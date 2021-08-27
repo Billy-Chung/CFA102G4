@@ -9,11 +9,11 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adoptMemberNews.model.adoptMemberNewsDAO;
-import com.adoptMemberNews.model.adoptMemberNewsVo;
-import com.adoptMemberNews.model.adoptMemberNews_interface;
+import com.adoptMemberNews.model.AdoptMemberNewsDAO;
+import com.adoptMemberNews.model.AdoptMemberNewsVo;
+import com.adoptMemberNews.model.AdoptMemberNews_interface;
 
-public class petClassListDAO implements petClassList_interface {
+public class PetClassListDAO implements PetClassList_interface {
 
 	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
 	private static final String SQLUSER = "David";
@@ -33,7 +33,7 @@ public class petClassListDAO implements petClassList_interface {
 	}
 
 	@Override
-	public petClassListVO insert(petClassListVO petClassList) {
+	public PetClassListVO insert(PetClassListVO petClassList) {
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			String[] cols = { "PET_CLASS_LIST_NO" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, petClassList, insertSQL, cols);
@@ -41,7 +41,7 @@ public class petClassListDAO implements petClassList_interface {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				int key = rs.getInt(1);
-				petClassList.setPET_CLASS_LIST_NO(key);
+				petClassList.setPet_class_list_no(key);
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -50,7 +50,7 @@ public class petClassListDAO implements petClassList_interface {
 	}
 
 	@Override
-	public void update(petClassListVO petClassList) {
+	public void update(PetClassListVO petClassList) {
 		// TODO Auto-generated method stub
 
 	}
@@ -62,8 +62,8 @@ public class petClassListDAO implements petClassList_interface {
 	}
 
 	@Override
-	public List<petClassListVO> findByAdoptPetNo(Integer ADOPT_PET_NO) {
-		List<petClassListVO> petClassLists = new ArrayList<>();
+	public List<PetClassListVO> findByAdoptPetNo(Integer ADOPT_PET_NO) {
+		List<PetClassListVO> petClassLists = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByPetNo);
@@ -77,8 +77,8 @@ public class petClassListDAO implements petClassList_interface {
 	}
 
 	@Override
-	public List<petClassListVO> findByPetClassNo(Integer PET_CLASS_NO) {
-		List<petClassListVO> petClassLists = new ArrayList<>();
+	public List<PetClassListVO> findByPetClassNo(Integer PET_CLASS_NO) {
+		List<PetClassListVO> petClassLists = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByClassNo);
@@ -92,59 +92,60 @@ public class petClassListDAO implements petClassList_interface {
 	}
 
 	public static void main(String[] args) {
-		petClassList_interface dao = new petClassListDAO();
-//		petClassListVO petClassList = new petClassListVO();
+		PetClassList_interface dao = new PetClassListDAO();
+		PetClassListVO petClassList = new PetClassListVO();
 
 //		test insert
-//		petClassList.setADOPT_PET_NO(1);
-//		petClassList.setPET_CLASS_NO(2);
-//		petClassList.setGEN_MEB_PET_NO(null);		
-//		petClassListVO petClassLists =  dao.insert(petClassList);
-//		System.out.println(petClassList.getPET_CLASS_LIST_NO());
+//		petClassList.setAdopt_pat_no(1);
+//		petClassList.setPet_class_no(2);
+//		petClassList.setGen_meb_pet_no(null);		
+//		PetClassListVO petClassLists =  dao.insert(petClassList);
+//		System.out.println(petClassList.getPet_class_list_no());
 
 //		test find by ADOPT_PET_NO 
-//		List<petClassListVO> petClassLists = dao.findByAdoptPetNo(1);
-//		for (petClassListVO petClassList : petClassLists) {
-//			System.out.print(petClassList.getPET_CLASS_LIST_NO() + ",");
-//			System.out.print(petClassList.getADOPT_PET_NO() + ",");
-//			System.out.print(petClassList.getPET_CLASS_NO() + ",");
-//			System.out.println(petClassList.getGEN_MEB_PET_NO() + ",");
+//		List<PetClassListVO> petClassLists = dao.findByAdoptPetNo(1);
+//		for (PetClassListVO petClassList : petClassLists) {
+//			System.out.print(petClassList.getPet_class_list_no() + ",");
+//			System.out.print(petClassList.getAdopt_pat_no() + ",");
+//			System.out.print(petClassList.getPet_class_no() + ",");
+//			System.out.println(petClassList.getGen_meb_pet_no() + ",");
 //			System.out.println("---------------------");
+//		}
 //			pmystmt.setNull(17, java.sql.Types.TIMESTAMP);
 
 //			test find by PET_CLASS_NO
-		List<petClassListVO> petClassLists = dao.findByPetClassNo(1);
-		for (petClassListVO petClassList : petClassLists) {
-			System.out.print(petClassList.getPET_CLASS_LIST_NO() + ",");
-			System.out.print(petClassList.getADOPT_PET_NO() + ",");
-			System.out.print(petClassList.getPET_CLASS_NO() + ",");
-			System.out.println(petClassList.getGEN_MEB_PET_NO() + ",");
-			System.out.println("---------------------");
-		}
+//		List<PetClassListVO> petClassLists = dao.findByPetClassNo(1);
+//		for (PetClassListVO petClassList : petClassLists) {
+//			System.out.print(petClassList.getPet_class_list_no() + ",");
+//			System.out.print(petClassList.getAdopt_pat_no() + ",");
+//			System.out.print(petClassList.getPet_class_no() + ",");
+//			System.out.println(petClassList.getGen_meb_pet_no() + ",");
+//			System.out.println("---------------------");
+//		}
 
 	}
 
-	private PreparedStatement createInsertPreparedStatement(Connection con, petClassListVO petClassList, String SQL,
+	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassListVO petClassList, String SQL,
 			String[] cols) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
-		pstmt.setInt(1, petClassList.getADOPT_PET_NO());
-		pstmt.setInt(2, petClassList.getPET_CLASS_NO());
-		if (petClassList.getGEN_MEB_PET_NO() == null) {
+		pstmt.setInt(1, petClassList.getAdopt_pat_no());
+		pstmt.setInt(2, petClassList.getPet_class_no());
+		if (petClassList.getGen_meb_pet_no() == null) {
 			pstmt.setNull(3, Types.NULL);
 		} else {
-			pstmt.setInt(3, petClassList.getGEN_MEB_PET_NO());
+			pstmt.setInt(3, petClassList.getGen_meb_pet_no());
 		}
 		return pstmt;
 	}
 
-	private List<petClassListVO> selectPetClassListByFK(List<petClassListVO> petClassLists, ResultSet rs) {
+	private List<PetClassListVO> selectPetClassListByFK(List<PetClassListVO> petClassLists, ResultSet rs) {
 		try {
 			while (rs.next()) {
-				petClassListVO petClassList = new petClassListVO();
-				petClassList.setPET_CLASS_LIST_NO(rs.getInt("PET_CLASS_LIST_NO"));
-				petClassList.setADOPT_PET_NO(rs.getInt("ADOPT_PET_NO"));
-				petClassList.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
-				petClassList.setGEN_MEB_PET_NO(rs.getInt("GEN_MEB_PET_NO"));
+				PetClassListVO petClassList = new PetClassListVO();
+				petClassList.setPet_class_list_no(rs.getInt("PET_CLASS_LIST_NO"));
+				petClassList.setAdopt_pat_no(rs.getInt("ADOPT_PET_NO"));
+				petClassList.setPet_class_no(rs.getInt("PET_CLASS_NO"));
+				petClassList.setGen_meb_pet_no(rs.getInt("GEN_MEB_PET_NO"));
 				petClassLists.add(petClassList);
 			}
 		} catch (SQLException e) {

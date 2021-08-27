@@ -7,9 +7,9 @@ public interface AdoptMemberDAO_interface {
 	
 	public void update(AdoptMemberVO adoptMember);
 
-	public AdoptMemberVO getFindByPK(Integer adopt_meb_no);
+	public AdoptMemberVO findByAdoptMebNoPK(Integer adopt_meb_no);
 	
-	public List<AdoptMemberVO> getFindByName(String adopt_meb_name);
+	public List<AdoptMemberVO> findByAdoptMebName(String adopt_meb_name);
 	
 	public List<AdoptMemberVO> getAllAdoptMeb();
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List; 
 
 
-public class petClassDAO implements petClasss_interface {
+public class PetClassDAO implements PetClasss_interface {
 
 	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
 	private static final String SQLUSER = "David";
@@ -28,7 +28,7 @@ public class petClassDAO implements petClasss_interface {
 	}
 
 	@Override
-	public petClassVO insert(petClassVO petClass) {
+	public PetClassVO insert(PetClassVO petClass) {
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			String[] cols = { "PET_CLASS_NO" };
 			PreparedStatement pstmt = createInsertPreparedStatement(con, petClass, insertSQL, cols);
@@ -36,7 +36,7 @@ public class petClassDAO implements petClasss_interface {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
 				int key = rs.getInt(1);
-				petClass.setPET_CLASS_NO(key);
+				petClass.setPet_class_no(key);
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -47,7 +47,7 @@ public class petClassDAO implements petClasss_interface {
 	
 
 	@Override
-	public void update(petClassVO petClass) {
+	public void update(PetClassVO petClass) {
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = createUpdatePreparedStatement(con, petClass, updateSQL);
 			pstmt.executeUpdate();
@@ -59,12 +59,12 @@ public class petClassDAO implements petClasss_interface {
 	
 
 	@Override
-	public petClassVO findBypetClassNo(Integer PET_CLASS_NO) {
-		petClassVO petClass = new petClassVO();
+	public PetClassVO findBypetClassNo(Integer pet_class_no) {
+		PetClassVO petClass = new PetClassVO();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByClassNo);
-			pstmt.setInt(1, PET_CLASS_NO);
+			pstmt.setInt(1, pet_class_no);
 			ResultSet rs = pstmt.executeQuery();
 			petClass = selectOneByPetClassNo(rs);
 		} catch (SQLException se) {
@@ -76,8 +76,8 @@ public class petClassDAO implements petClasss_interface {
 	
 
 	@Override
-	public List<petClassVO> getAllpetClass() {
-		List<petClassVO> petClassList = new ArrayList<>();
+	public List<PetClassVO> getAllpetClass() {
+		List<PetClassVO> petClassList = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(selectAll);
@@ -92,63 +92,63 @@ public class petClassDAO implements petClasss_interface {
 	
 
 	public static void main(String[] args) {
-		petClasss_interface dao = new petClassDAO();
-		petClassVO petClassVO = new petClassVO();
+		PetClasss_interface dao = new PetClassDAO();
+		PetClassVO PetClassVO = new PetClassVO();
 
 //		test insert pet class
-//		petClassVO.setPET_CLASS_NAME("壁虎");
-//		petClassVO.setPET_CLASS_STATE("1");		
-//		petClassVO petClass =  dao.insert(petClassVO);
-//		System.out.println(petClassVO.getPET_CLASS_NO());
+		PetClassVO.setPet_class_name("壁虎");
+		PetClassVO.setPet_class_state("1");		
+		PetClassVO petClass =  dao.insert(PetClassVO);
+		System.out.println(petClass.getPet_class_no());
 
 //		test update pet class
-//		petClassVO.setPET_CLASS_NAME("老鼠");
-//		petClassVO.setPET_CLASS_STATE("1");
-//		petClassVO.setPET_CLASS_NO(9);
-//		dao.update(petClassVO);
+//		PetClassVO.setPet_class_name("老鼠");
+//		PetClassVO.setPet_class_state("1");
+//		PetClassVO.setPet_class_no(8);
+//		dao.update(PetClassVO);
 
 //		test select one pet class
-//		petClassVO petClass = dao.findBypetClassNo(2);
-//		System.out.print(petClass.getPET_CLASS_NO() + ",");
-//		System.out.print(petClass.getPET_CLASS_NAME() + ",");
-//		System.out.println(petClass.getPET_CLASS_STATE() + ",");
+//		PetClassVO petClass = dao.findBypetClassNo(2);
+//		System.out.print(petClass.getPet_class_no() + ",");
+//		System.out.print(petClass.getPet_class_name() + ",");
+//		System.out.println(petClass.getPet_class_state() + ",");
 //		System.out.println("---------------------");
 		
 //		test select all pet class
-		List<petClassVO> petClassList = dao.getAllpetClass();
-		for (petClassVO petClass : petClassList) {
-			System.out.print(petClass.getPET_CLASS_NO() + ",");
-			System.out.print(petClass.getPET_CLASS_NAME() + ",");
-			System.out.println(petClass.getPET_CLASS_STATE() + ",");				
-			System.out.println("---------------------");
-		}
+//		List<PetClassVO> petClassList = dao.getAllpetClass();
+//		for (PetClassVO petClass : petClassList) {
+//			System.out.print(petClass.getPet_class_no() + ",");
+//			System.out.print(petClass.getPet_class_name() + ",");
+//			System.out.println(petClass.getPet_class_state() + ",");				
+//			System.out.println("---------------------");
+//		}
 
 	}
 	
-	private PreparedStatement createInsertPreparedStatement(Connection con, petClassVO petClass, String SQL,
+	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassVO petClass, String SQL,
 			String[] cols) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
-		pstmt.setString(1, petClass.getPET_CLASS_NAME());
-		pstmt.setString(2, petClass.getPET_CLASS_STATE());
+		pstmt.setString(1, petClass.getPet_class_name());
+		pstmt.setString(2, petClass.getPet_class_state());
 		return pstmt;
 	}
 	
-	private PreparedStatement createUpdatePreparedStatement(Connection con, petClassVO petClass, String SQL)
+	private PreparedStatement createUpdatePreparedStatement(Connection con, PetClassVO petClass, String SQL)
 			throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL);
-		pstmt.setString(1, petClass.getPET_CLASS_NAME());
-		pstmt.setString(2, petClass.getPET_CLASS_STATE());
-		pstmt.setInt(3, petClass.getPET_CLASS_NO());
+		pstmt.setString(1, petClass.getPet_class_name());
+		pstmt.setString(2, petClass.getPet_class_state());
+		pstmt.setInt(3, petClass.getPet_class_no());
 		return pstmt;
 	}
 	
-	private petClassVO selectOneByPetClassNo(ResultSet rs) {
-		petClassVO petClass = new petClassVO();
+	private PetClassVO selectOneByPetClassNo(ResultSet rs) {
+		PetClassVO petClass = new PetClassVO();
 		try {
 			while (rs.next()) {
-				petClass.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
-				petClass.setPET_CLASS_NAME(rs.getString("PET_CLASS_NAME"));
-				petClass.setPET_CLASS_STATE(rs.getString("PET_CLASS_STATE"));
+				petClass.setPet_class_no(rs.getInt("PET_CLASS_NO"));
+				petClass.setPet_class_name(rs.getString("PET_CLASS_NAME"));
+				petClass.setPet_class_state(rs.getString("PET_CLASS_STATE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,13 +156,13 @@ public class petClassDAO implements petClasss_interface {
 		return petClass;
 	}
 	
-	private List<petClassVO> selectAllpetClass(List<petClassVO> petClassList, ResultSet rs) {
+	private List<PetClassVO> selectAllpetClass(List<PetClassVO> petClassList, ResultSet rs) {
 		try {
 			while (rs.next()) {
-				petClassVO petClass = new petClassVO();
-				petClass.setPET_CLASS_NO(rs.getInt("PET_CLASS_NO"));
-				petClass.setPET_CLASS_NAME(rs.getString("PET_CLASS_NAME"));
-				petClass.setPET_CLASS_STATE(rs.getString("PET_CLASS_STATE"));
+				PetClassVO petClass = new PetClassVO();
+				petClass.setPet_class_no(rs.getInt("PET_CLASS_NO"));
+				petClass.setPet_class_name(rs.getString("PET_CLASS_NAME"));
+				petClass.setPet_class_state(rs.getString("PET_CLASS_STATE"));
 				petClassList.add(petClass);
 			}
 		} catch (SQLException e) {
