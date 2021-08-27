@@ -6,7 +6,7 @@ public interface PetClassList_interface {
 	
 	public PetClassListVO insert(PetClassListVO petClassList);	
 	
-	public void delete(Integer pet_class_list_no);
+	public void update(PetClassListVO petClassList);
 	
 	public List<PetClassListVO> findByAdoptPetNo(Integer adopt_pat_no);	
 	

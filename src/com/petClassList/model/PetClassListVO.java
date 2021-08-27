@@ -7,7 +7,7 @@ public class PetClassListVO implements Serializable {
 	private Integer adopt_pat_no;
 	private Integer pet_class_no;
 	private Integer gen_meb_pet_no;
-	
+	private String pet_class_list_state;
 	
 	public Integer getPet_class_list_no() {
 		return pet_class_list_no;
@@ -32,6 +32,15 @@ public class PetClassListVO implements Serializable {
 	}
 	public void setGen_meb_pet_no(Integer gen_meb_pet_no) {
 		this.gen_meb_pet_no = gen_meb_pet_no;
-	}	
+	}
+	public String getPet_class_list_state() {
+		return pet_class_list_state;
+	}
+	public void setPet_class_list_state(String pet_class_list_state) {
+		this.pet_class_list_state = pet_class_list_state;
+	}
+	
+	
+	
 	
 }
