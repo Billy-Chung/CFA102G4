@@ -9,18 +9,13 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adoptMemberNews.model.AdoptMemberNewsDAO;
-import com.adoptMemberNews.model.AdoptMemberNewsVo;
-import com.adoptMemberNews.model.AdoptMemberNews_interface;
-
 public class PetClassListDAO implements PetClassList_interface {
 
 	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
 	private static final String SQLUSER = "David";
 	private static final String SQLPASSWORD = "123456";
 	private static final String insertSQL = "insert into PET_CLASS_LIST (ADOPT_PET_NO,PET_CLASS_NO,GEN_MEB_PET_NO) values(?,?,?)";
-	private static final String updateSQL = "update PET_CLASS_LIST set PET_CLASS_NO = ?, GEN_MEB_PET_NO = ? where ADOPT_PET_NO = ?";
-	private static final String delete = "delect FROM PET_CLASS_LIST WHERE ADOPT_PET_NO = ?";
+	private static final String deleteSQL = "delete FROM PET_CLASS_LIST WHERE PET_CLASS_LIST_NO = ?";
 	private static final String findByPetNo = "SELECT * FROM PET_CLASS_LIST WHERE ADOPT_PET_NO = ?";
 	private static final String findByClassNo = "SELECT * FROM PET_CLASS_LIST WHERE PET_CLASS_NO = ?";
 
@@ -50,24 +45,23 @@ public class PetClassListDAO implements PetClassList_interface {
 	}
 
 	@Override
-	public void update(PetClassListVO petClassList) {
-		// TODO Auto-generated method stub
+	public void delete(Integer pet_class_list_no) {
+		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+			PreparedStatement pstmt = createDeletePreparedStatement(con, pet_class_list_no, deleteSQL);
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void delete(Integer ADOPT_PET_NO) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<PetClassListVO> findByAdoptPetNo(Integer ADOPT_PET_NO) {
+	public List<PetClassListVO> findByAdoptPetNo(Integer adopt_pat_no) {
 		List<PetClassListVO> petClassLists = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByPetNo);
-			pstmt.setInt(1, ADOPT_PET_NO);
+			pstmt.setInt(1, adopt_pat_no);
 			ResultSet rs = pstmt.executeQuery();
 			petClassLists = selectPetClassListByFK(petClassLists, rs);
 		} catch (SQLException se) {
@@ -77,12 +71,12 @@ public class PetClassListDAO implements PetClassList_interface {
 	}
 
 	@Override
-	public List<PetClassListVO> findByPetClassNo(Integer PET_CLASS_NO) {
+	public List<PetClassListVO> findByPetClassNo(Integer pet_class_no) {
 		List<PetClassListVO> petClassLists = new ArrayList<>();
 
 		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
 			PreparedStatement pstmt = con.prepareStatement(findByClassNo);
-			pstmt.setInt(1, PET_CLASS_NO);
+			pstmt.setInt(1, pet_class_no);
 			ResultSet rs = pstmt.executeQuery();
 			petClassLists = selectPetClassListByFK(petClassLists, rs);
 		} catch (SQLException se) {
@@ -113,7 +107,7 @@ public class PetClassListDAO implements PetClassList_interface {
 //		}
 //			pmystmt.setNull(17, java.sql.Types.TIMESTAMP);
 
-//			test find by PET_CLASS_NO
+//		test find by PET_CLASS_NO
 //		List<PetClassListVO> petClassLists = dao.findByPetClassNo(1);
 //		for (PetClassListVO petClassList : petClassLists) {
 //			System.out.print(petClassList.getPet_class_list_no() + ",");
@@ -121,7 +115,11 @@ public class PetClassListDAO implements PetClassList_interface {
 //			System.out.print(petClassList.getPet_class_no() + ",");
 //			System.out.println(petClassList.getGen_meb_pet_no() + ",");
 //			System.out.println("---------------------");
-//		}
+//		}	
+		
+//		test delete
+//		dao.delete(1);
+		
 
 	}
 
@@ -152,6 +150,13 @@ public class PetClassListDAO implements PetClassList_interface {
 			e.printStackTrace();
 		}
 		return petClassLists;
+	}
+
+	private PreparedStatement createDeletePreparedStatement(Connection con, Integer pet_class_list_no, String SQL)
+			throws SQLException {
+		PreparedStatement pstmt = con.prepareStatement(SQL);		
+		pstmt.setInt(1, pet_class_list_no);
+		return pstmt;
 	}
 
 }

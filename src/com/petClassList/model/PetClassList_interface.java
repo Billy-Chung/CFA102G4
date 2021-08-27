@@ -4,11 +4,9 @@ import java.util.List;
 
 public interface PetClassList_interface {
 	
-	public PetClassListVO insert(PetClassListVO petClassList);
+	public PetClassListVO insert(PetClassListVO petClassList);	
 	
-	public void update(PetClassListVO petClassList);
-	
-	public void delete(Integer adopt_pat_no);
+	public void delete(Integer pet_class_list_no);
 	
 	public List<PetClassListVO> findByAdoptPetNo(Integer adopt_pat_no);	
 	
