@@ -12,13 +12,13 @@ import java.util.List;
 
 public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 
-	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQLUSER = "David";
-	private static final String SQLPASSWORD = "123456";
-	private static final String insertSQL = "insert into ADOPT_PET_PHOTO (ADOPT_PET_NO,ADOPT_PET_PHOTO) values(?,?)";
-	private static final String updateSQL = "update ADOPT_PET_PHOTO set ADOPT_PET_PHOTO = ? where ADOPT_PET_PHOTO_NO = ?";
-	private static final String deleteSQL = "delete from ADOPT_PET_PHOTO where ADOPT_PET_PHOTO_NO = ?";
-	private static final String findByPetNo = "SELECT * FROM ADOPT_PET_PHOTO WHERE ADOPT_PET_NO = ?";
+	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
+	private static final String SQL_USER = "David";
+	private static final String SQL_PASSWORD = "123456";
+	private static final String INSERT_SQL = "insert into ADOPT_PET_PHOTO (ADOPT_PET_NO,ADOPT_PET_PHOTO) values(?,?)";
+	private static final String UPDATE_SQL = "update ADOPT_PET_PHOTO set ADOPT_PET_PHOTO = ? where ADOPT_PET_PHOTO_NO = ?";
+	private static final String DELETE_SQL = "delete from ADOPT_PET_PHOTO where ADOPT_PET_PHOTO_NO = ?";
+	private static final String FIND_BY_PET_NO = "SELECT * FROM ADOPT_PET_PHOTO WHERE ADOPT_PET_NO = ?";
 
 	static {
 		try {
@@ -30,9 +30,9 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 
 	@Override
 	public AdoptPetPhotoVO insert(AdoptPetPhotoVO adoptPetPhoto) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
 			String[] cols = { "ADOPT_PET_PHOTO_NO" };
-			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptPetPhoto, insertSQL, cols);
+			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptPetPhoto, INSERT_SQL, cols);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -47,8 +47,8 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 
 	@Override
 	public void update(AdoptPetPhotoVO adoptPetPhoto) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptPetPhoto, updateSQL);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptPetPhoto, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -59,8 +59,8 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 
 	@Override
 	public void delete(Integer adopt_pet_photo_no) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = createDeletePreparedStatement(con, adopt_pet_photo_no, deleteSQL);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = createDeletePreparedStatement(con, adopt_pet_photo_no, DELETE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -72,8 +72,8 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 	public List<AdoptPetPhotoVO> findByadoptPetNo(Integer adopt_pet_no) {
 		List<AdoptPetPhotoVO> adoptMemberPhotoList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(findByPetNo);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PET_NO);
 			pstmt.setInt(1, adopt_pet_no);
 			ResultSet rs = pstmt.executeQuery();
 			adoptMemberPhotoList = selectAdoptMebPhotos(adoptMemberPhotoList, rs);

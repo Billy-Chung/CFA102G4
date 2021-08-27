@@ -11,13 +11,13 @@ import java.util.List;
 
 public class PetClassDAO implements PetClasss_interface {
 
-	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQLUSER = "David";
-	private static final String SQLPASSWORD = "123456";
-	private static final String insertSQL = "insert into PET_CLASS (PET_CLASS_NAME,PET_CLASS_STATE) values(?,?)";
-	private static final String updateSQL = "update PET_CLASS set PET_CLASS_NAME = ?,PET_CLASS_STATE = ? where PET_CLASS_NO = ?";
-	private static final String findByClassNo = "SELECT * FROM PET_CLASS WHERE PET_CLASS_NO = ?";
-	private static final String selectAll = "SELECT * FROM PET_CLASS";
+	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
+	private static final String SQL_USER = "David";
+	private static final String SQL_PASSWORD = "123456";
+	private static final String INSERT_SQL = "insert into PET_CLASS (PET_CLASS_NAME,PET_CLASS_STATE) values(?,?)";
+	private static final String UPDATE_SQL = "update PET_CLASS set PET_CLASS_NAME = ?,PET_CLASS_STATE = ? where PET_CLASS_NO = ?";
+	private static final String FIND_BY_CLASS_NO = "SELECT * FROM PET_CLASS WHERE PET_CLASS_NO = ?";
+	private static final String SELECT_ALL = "SELECT * FROM PET_CLASS";
 
 	static {
 		try {
@@ -29,9 +29,9 @@ public class PetClassDAO implements PetClasss_interface {
 
 	@Override
 	public PetClassVO insert(PetClassVO petClass) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
 			String[] cols = { "PET_CLASS_NO" };
-			PreparedStatement pstmt = createInsertPreparedStatement(con, petClass, insertSQL, cols);
+			PreparedStatement pstmt = createInsertPreparedStatement(con, petClass, INSERT_SQL, cols);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -48,8 +48,8 @@ public class PetClassDAO implements PetClasss_interface {
 
 	@Override
 	public void update(PetClassVO petClass) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = createUpdatePreparedStatement(con, petClass, updateSQL);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = createUpdatePreparedStatement(con, petClass, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -62,8 +62,8 @@ public class PetClassDAO implements PetClasss_interface {
 	public PetClassVO findBypetClassNo(Integer pet_class_no) {
 		PetClassVO petClass = new PetClassVO();
 
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(findByClassNo);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(FIND_BY_CLASS_NO);
 			pstmt.setInt(1, pet_class_no);
 			ResultSet rs = pstmt.executeQuery();
 			petClass = selectOneByPetClassNo(rs);
@@ -79,8 +79,8 @@ public class PetClassDAO implements PetClasss_interface {
 	public List<PetClassVO> getAllpetClass() {
 		List<PetClassVO> petClassList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(selectAll);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
 			petClassList = selectAllpetClass(petClassList, rs);
 		} catch (SQLException se) {

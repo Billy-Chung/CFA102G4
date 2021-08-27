@@ -12,14 +12,14 @@ import java.util.List;
 
 
 public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
-	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQLUSER = "David";
-	private static final String SQLPASSWORD = "123456";
-	private static final String insertSQL = "insert into ADOPT_MEMBER_NEWS (ADOPT_MEB_NO,ADOPT_MEB_NEWS_TITLE,ADOPT_MEB_NEWS_COMMENT,ADOPT_MEB_NEWS_PHOTO,ADOPT_MEB_NEWS_STATE,ADOPT_MEB_NEWS_DATE) values(?,?,?,?,?,?)";
-	private static final String updateSQL = "update ADOPT_MEMBER_NEWS set ADOPT_MEB_NEWS_TITLE = ?, ADOPT_MEB_NEWS_COMMENT = ?, ADOPT_MEB_NEWS_PHOTO = ?, ADOPT_MEB_NEWS_STATE = ?, ADOPT_MEB_NEWS_DATE = ? where ADOPT_MEB_NEWS_NO = ?";
-	private static final String findByPK = "SELECT * FROM ADOPT_MEMBER_NEWS WHERE ADOPT_MEB_NEWS_NO = ?";
-	private static final String findByName = "SELECT * FROM ADOPT_MEMBER_NEWS WHERE ADOPT_MEB_NEWS_TITLE like ?";
-	private static final String selectAll = "SELECT * FROM ADOPT_MEMBER_NEWS";
+	private static final String SQL_URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
+	private static final String SQL_USER = "David";
+	private static final String SQL_PASSWORD = "123456";
+	private static final String INSERT_SQL = "insert into ADOPT_MEMBER_NEWS (ADOPT_MEB_NO,ADOPT_MEB_NEWS_TITLE,ADOPT_MEB_NEWS_COMMENT,ADOPT_MEB_NEWS_PHOTO,ADOPT_MEB_NEWS_STATE,ADOPT_MEB_NEWS_DATE) values(?,?,?,?,?,?)";
+	private static final String UPDATE_SQL = "update ADOPT_MEMBER_NEWS set ADOPT_MEB_NEWS_TITLE = ?, ADOPT_MEB_NEWS_COMMENT = ?, ADOPT_MEB_NEWS_PHOTO = ?, ADOPT_MEB_NEWS_STATE = ?, ADOPT_MEB_NEWS_DATE = ? where ADOPT_MEB_NEWS_NO = ?";
+	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_MEMBER_NEWS WHERE ADOPT_MEB_NEWS_NO = ?";
+	private static final String FIND_BY_NAME = "SELECT * FROM ADOPT_MEMBER_NEWS WHERE ADOPT_MEB_NEWS_TITLE like ?";
+	private static final String SELECT_ALL = "SELECT * FROM ADOPT_MEMBER_NEWS";
 
 	static {
 		try {
@@ -31,9 +31,9 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 
 	@Override
 	public AdoptMemberNewsVo insert(AdoptMemberNewsVo adoptMemberNews) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
 			String[] cols = { "ADOPT_MEB_NEWS_NO" };
-			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptMemberNews, insertSQL, cols);
+			PreparedStatement pstmt = createInsertPreparedStatement(con, adoptMemberNews, INSERT_SQL, cols);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if (rs.next()) {
@@ -48,8 +48,8 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 
 	@Override
 	public void update(AdoptMemberNewsVo adoptMemberNews) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptMemberNews, updateSQL);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = createUpdatePreparedStatement(con, adoptMemberNews, UPDATE_SQL);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -61,8 +61,8 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 	public AdoptMemberNewsVo findByadoptMemberNewsNoPK(Integer adopt_meb_news_no) {
 		AdoptMemberNewsVo adoptMemberNews = null;
 
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(findByPK);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1, adopt_meb_news_no);
 			ResultSet rs = pstmt.executeQuery();
 			adoptMemberNews = selectOneadoptMemberNewsByNo(rs);
@@ -76,8 +76,8 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 	public List<AdoptMemberNewsVo> findByAdoptMebNewsTitle(String adopt_meb_news_title) {
 		List<AdoptMemberNewsVo> adoptMemberNewsList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(findByName);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(FIND_BY_NAME);
 			pstmt.setString(1, "%" + adopt_meb_news_title + "%");
 			ResultSet rs = pstmt.executeQuery();
 			adoptMemberNewsList = selectAdoptMebNewsByTitle(adoptMemberNewsList, rs);
@@ -91,10 +91,10 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 	public List<AdoptMemberNewsVo> getAlladoptMemberNews() {
 		List<AdoptMemberNewsVo> adoptMemberNewsList = new ArrayList<>();
 
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(selectAll);
+		try (Connection con = DriverManager.getConnection(SQL_URL, SQL_USER, SQL_PASSWORD)) {
+			PreparedStatement pstmt = con.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
-			adoptMemberNewsList = selectAllAdoptMemberNews(adoptMemberNewsList, rs);
+			adoptMemberNewsList = selectallAdoptMemberNews(adoptMemberNewsList, rs);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -222,7 +222,7 @@ public class AdoptMemberNewsDAO implements AdoptMemberNews_interface {
 		return adoptMemberNews;
 	}
 
-	private List<AdoptMemberNewsVo> selectAllAdoptMemberNews(List<AdoptMemberNewsVo> adoptMemberNewsList,
+	private List<AdoptMemberNewsVo> selectallAdoptMemberNews(List<AdoptMemberNewsVo> adoptMemberNewsList,
 			ResultSet rs) {
 		try {
 			while (rs.next()) {
