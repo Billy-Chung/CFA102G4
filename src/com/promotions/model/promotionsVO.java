@@ -4,84 +4,93 @@ import java.io.Serializable;
 import java.sql.Date;
 
 
+
+
+
+//VO，Value Object 值物件，每個表格對應一個VO
 public class promotionsVO implements Serializable {
-	private Integer PROMOT_NO;
-	private String PROMOT_NAME;	
-	private Date PROMOT_DATE_START;
-	private Date PROMOT_DATE_END;
-	private String PROMOT_STATUS;
-	private String PROMOT_TYPE;
-	private String PROMOT_DISCOUNT_TYPE;	
-	private String PROMOT_DISCOUNT;
-	private String PROMOT_REDUCE;	
-	private String PROMOT_COMMENT;
-	private byte[] PROMOT_PHOTO;
+	private int promot_no;
+	private String promot_name;	
+	private Date promot_date_start;
+	private Date promot_date_end;
+	private String promot_status;
+	private String promot_type;
+	private String promot_discount_type;	
+	private String promot_discount;
+	private String promot_reduce;	
+	private String promot_comment;
 	
-	public Integer getPROMOT_NO() {
-		return PROMOT_NO;
+	private byte[] promot_photo;//存LONGBLOB  type_img
+	
+	
+	
+	public int getPromot_no() {
+		return promot_no;
 	}
-	public void setPROMOT_NO(Integer pROMOT_NO) {
-		PROMOT_NO = pROMOT_NO;
+	public void setPromot_no(int promot_no) {
+		this.promot_no = promot_no;
 	}
-	public String getPROMOT_NAME() {
-		return PROMOT_NAME;
+	public String getPromot_name() {
+		return promot_name;
 	}
-	public void setPROMOT_NAME(String pROMOT_NAME) {
-		PROMOT_NAME = pROMOT_NAME;
+	public void setPromot_name(String promot_name) {
+		this.promot_name = promot_name;
 	}
-	public Date getPROMOT_DATE_START() {
-		return PROMOT_DATE_START;
+	public Date getPromot_date_start() {
+		return promot_date_start;
 	}
-	public void setPROMOT_DATE_START(Date pROMOT_DATE_START) {
-		PROMOT_DATE_START = pROMOT_DATE_START;
+	public void setPromot_date_start(Date promot_date_start) {
+		this.promot_date_start = promot_date_start;
 	}
-	public Date PROMOT_DATE_END() {
-		return PROMOT_DATE_END;
+	public Date getPromot_date_end() {
+		return promot_date_end;
 	}
-	public void setPROMOT_DATE_END(Date pROMOT_DATE_END) {
-		PROMOT_DATE_END = pROMOT_DATE_END;
+	public void setPromot_date_end(Date promot_date_end) {
+		this.promot_date_end = promot_date_end;
 	}
-	public String getPROMOT_STATUS() {
-		return PROMOT_STATUS;
+	public String getPromot_status() {
+		return promot_status;
 	}
-	public void setPROMOT_STATUS(String pROMOT_STATUS) {
-		PROMOT_STATUS = pROMOT_STATUS;
+	public void setPromot_status(String promot_status) {
+		this.promot_status = promot_status;
 	}
-	public String getPROMOT_TYPE() {
-		return PROMOT_TYPE;
+	public String getPromot_type() {
+		return promot_type;
 	}
-	public void setPROMOT_TYPE(String pROMOT_TYPE) {
-		PROMOT_TYPE = pROMOT_TYPE;
+	public void setPromot_type(String promot_type) {
+		this.promot_type = promot_type;
 	}
-	public String getPROMOT_DISCOUNT_TYPE() {
-		return PROMOT_DISCOUNT_TYPE;
+	public String getPromot_discount_type() {
+		return promot_discount_type;
 	}
-	public void setPROMOT_DISCOUNT_TYPE(String pROMOT_DISCOUNT_TYPE) {
-		PROMOT_DISCOUNT_TYPE = pROMOT_DISCOUNT_TYPE;
+	public void setPromot_discount_type(String promot_discount_type) {
+		this.promot_discount_type = promot_discount_type;
 	}
-	public String getPROMOT_DISCOUNT() {
-		return PROMOT_DISCOUNT;
+	public String getPromot_discount() {
+		return promot_discount;
 	}
-	public void setPROMOT_DISCOUNT(String pROMOT_DISCOUNT) {
-		PROMOT_DISCOUNT = pROMOT_DISCOUNT;
+	public void setPromot_discount(String promot_discount) {
+		this.promot_discount = promot_discount;
 	}
-	public String getPROMOT_REDUCE() {
-		return PROMOT_REDUCE;
+	public String getPromot_reduce() {
+		return promot_reduce;
 	}
-	public void setPROMOT_REDUCE(String pROMOT_REDUCE) {
-		PROMOT_REDUCE = pROMOT_REDUCE;
+	public void setPromot_reduce(String promot_reduce) {
+		this.promot_reduce = promot_reduce;
 	}
-	public String getPROMOT_COMMENT() {
-		return PROMOT_COMMENT;
+	public String getPromot_comment() {
+		return promot_comment;
 	}
-	public void setPROMOT_COMMENT(String pROMOT_COMMENT) {
-		PROMOT_COMMENT = pROMOT_COMMENT;
+	public void setPromot_comment(String promot_comment) {
+		this.promot_comment = promot_comment;
 	}
-	public byte[] getPROMOT_PHOTO() {
-		return PROMOT_PHOTO;
+	public byte[] getPromot_photo() {
+		return promot_photo;
 	}
-	public void setPROMOT_PHOTO(byte[] pROMOT_PHOTO) {
-		PROMOT_PHOTO = pROMOT_PHOTO;
+	public void setPromot_photo(byte[] promot_photo) {
+		this.promot_photo = promot_photo;
 	}
+
+	
 	
 }
