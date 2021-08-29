@@ -14,7 +14,7 @@ public class AdoptMemberNewService {
 
 	public AdoptMemberNewsVo insertAdoptMemberNew(Integer adopt_meb_no, String adopt_meb_news_title,
 			String adopt_meb_news_comment, byte[] adopt_meb_news_photo, String adopt_meb_news_state,
-			String adopt_meb_news_date) {
+			Date adopt_meb_news_date) {
 		AdoptMemberNewsVo adoptMemberNew = new AdoptMemberNewsVo();
 
 		adoptMemberNew.setAdopt_meb_no(adopt_meb_no);
@@ -22,14 +22,14 @@ public class AdoptMemberNewService {
 		adoptMemberNew.setAdopt_meb_news_comment(adopt_meb_news_comment);
 		adoptMemberNew.setAdopt_meb_news_photo(adopt_meb_news_photo);
 		adoptMemberNew.setAdopt_meb_news_state(adopt_meb_news_state);
-		adoptMemberNew.setAdopt_meb_news_date(java.sql.Date.valueOf(adopt_meb_news_date));
+		adoptMemberNew.setAdopt_meb_news_date(adopt_meb_news_date);
 		adoptMemberNew = dao.insert(adoptMemberNew);
 
 		return adoptMemberNew;
 	}
 
 	public void updateAdoptMemberNew(String adopt_meb_news_title, String adopt_meb_news_comment,
-			byte[] adopt_meb_news_photo, String adopt_meb_news_state, String adopt_meb_news_date,
+			byte[] adopt_meb_news_photo, String adopt_meb_news_state, Date adopt_meb_news_date,
 			Integer adopt_meb_news_no) {
 		AdoptMemberNewsVo adoptMemberNew = new AdoptMemberNewsVo();
 
@@ -37,7 +37,7 @@ public class AdoptMemberNewService {
 		adoptMemberNew.setAdopt_meb_news_comment(adopt_meb_news_comment);
 		adoptMemberNew.setAdopt_meb_news_photo(adopt_meb_news_photo);
 		adoptMemberNew.setAdopt_meb_news_state(adopt_meb_news_state);
-		adoptMemberNew.setAdopt_meb_news_date(java.sql.Date.valueOf(adopt_meb_news_date));
+		adoptMemberNew.setAdopt_meb_news_date(adopt_meb_news_date);
 		adoptMemberNew.setAdopt_meb_news_no(adopt_meb_news_no);
 
 		dao.update(adoptMemberNew);

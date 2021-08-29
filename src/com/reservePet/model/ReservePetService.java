@@ -11,7 +11,7 @@ public class ReservePetService {
 	}
 
 	public ReservePetVO insertReservePet(Integer adopt_meb_no, Integer gen_meb_no, Integer adopt_pet_no,
-			String reserve_people_name, String reserve_people_phone, String reserve_date, String reserve_timeprivate,
+			String reserve_people_name, String reserve_people_phone, Date reserve_date, String reserve_timeprivate,
 			String reserve_state) {
 		ReservePetVO reservePet = new ReservePetVO();
 
@@ -20,7 +20,7 @@ public class ReservePetService {
 		reservePet.setAdopt_pet_no(adopt_pet_no);
 		reservePet.setReserve_people_name(reserve_people_name);
 		reservePet.setReserve_people_phone(reserve_people_phone);
-		reservePet.setReserve_date(java.sql.Date.valueOf(reserve_date));
+		reservePet.setReserve_date(reserve_date);
 		reservePet.setReserve_time(reserve_timeprivate);
 		reservePet.setReserve_state(reserve_state);
 		reservePet = dao.insert(reservePet);
@@ -28,13 +28,13 @@ public class ReservePetService {
 		return reservePet;
 	}
 
-	public void upodateReservePet(String reserve_people_name, String reserve_people_phone, String reserve_date,
+	public void upodateReservePet(String reserve_people_name, String reserve_people_phone, Date reserve_date,
 			String reserve_timeprivate, String reserve_state, Integer reserve_pet_no) {
 		ReservePetVO reservePet = new ReservePetVO();
 
 		reservePet.setReserve_people_name(reserve_people_name);
 		reservePet.setReserve_people_phone(reserve_people_phone);
-		reservePet.setReserve_date(java.sql.Date.valueOf(reserve_date));
+		reservePet.setReserve_date(reserve_date);
 		reservePet.setReserve_time(reserve_timeprivate);
 		reservePet.setReserve_state(reserve_state);
 		reservePet.setReserve_pet_no(reserve_pet_no);

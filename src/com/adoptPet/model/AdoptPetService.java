@@ -11,7 +11,7 @@ public class AdoptPetService {
 	}
 
 	public AdoptPetVO insertAdoptPet(Integer adopt_meb_no, Integer gen_meb_no, String adopt_pet_breeds,
-			String adopt_pet_gender, String adopt_pet_come_form, String adopt_pet_join_date, String adopt_pet_chip,
+			String adopt_pet_gender, String adopt_pet_come_form, Date adopt_pet_join_date, String adopt_pet_chip,
 			String adopt_pet_join_reason, String capture_address, String adopt_pet_sterilization, String contain_number,
 			String adopt_pet_color, String adopt_pet_state) {
 		AdoptPetVO adoptPet = new AdoptPetVO();
@@ -21,7 +21,7 @@ public class AdoptPetService {
 		adoptPet.setAdopt_pet_breeds(adopt_pet_breeds);
 		adoptPet.setAdopt_pet_gender(adopt_pet_gender);
 		adoptPet.setAdopt_pet_come_form(adopt_pet_come_form);
-		adoptPet.setAdopt_pet_join_date(java.sql.Date.valueOf(adopt_pet_join_date));
+		adoptPet.setAdopt_pet_join_date(adopt_pet_join_date);
 		adoptPet.setAdopt_pet_chip(adopt_pet_chip);
 		adoptPet.setAdopt_pet_join_reason(adopt_pet_join_reason);
 		adoptPet.setCapture_address(capture_address);
@@ -35,7 +35,7 @@ public class AdoptPetService {
 	}
 
 	public void updateAdoptPet(Integer gen_meb_no, String adopt_pet_breeds, String adopt_pet_gender,
-			String adopt_pet_come_form, String adopt_pet_join_date, String adopt_pet_chip, String adopt_pet_join_reason,
+			String adopt_pet_come_form, Date adopt_pet_join_date, String adopt_pet_chip, String adopt_pet_join_reason,
 			String capture_address, String adopt_pet_sterilization, String contain_number, String adopt_pet_color,
 			String adopt_pet_state, Integer adopt_pet_no) {
 		AdoptPetVO adoptPet = new AdoptPetVO();
@@ -44,7 +44,7 @@ public class AdoptPetService {
 		adoptPet.setAdopt_pet_breeds(adopt_pet_breeds);
 		adoptPet.setAdopt_pet_gender(adopt_pet_gender);
 		adoptPet.setAdopt_pet_come_form(adopt_pet_come_form);
-		adoptPet.setAdopt_pet_join_date(java.sql.Date.valueOf(adopt_pet_join_date));
+		adoptPet.setAdopt_pet_join_date(adopt_pet_join_date);
 		adoptPet.setAdopt_pet_chip(adopt_pet_chip);
 		adoptPet.setAdopt_pet_join_reason(adopt_pet_join_reason);
 		adoptPet.setCapture_address(capture_address);

@@ -10,12 +10,12 @@ public class AdoptAppointFormService {
 		dao = new AdoptAppointFormDAO();
 	}
 
-	public AdoptAppointFormVO insertAdoptAppointForm(Integer adopt_meb_no, String appoint_date,
+	public AdoptAppointFormVO insertAdoptAppointForm(Integer adopt_meb_no, Date appoint_date,
 			String finifh_appoint_num, String appoint_limit) {
 		AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();
 
 		adoptAppointForm.setAdopt_meb_no(adopt_meb_no);
-		adoptAppointForm.setAppoint_date(java.sql.Date.valueOf(appoint_date));
+		adoptAppointForm.setAppoint_date(appoint_date);
 		adoptAppointForm.setFinifh_appoint_num(finifh_appoint_num);
 		adoptAppointForm.setAppoint_limit("appoint_limit");
 		adoptAppointForm = dao.insert(adoptAppointForm);
