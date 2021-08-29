@@ -10,208 +10,250 @@ import java.util.List;
 
 public class productDAO implements productDAO_interface {
 	
-	private static final String SQLURL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
-	private static final String SQLUSER = "David";
-	private static final String SQLPASSWORD = "123456";
-	private static final String insertSQL = "insert into PRODUCT (PRODUCT_TYPE_NO, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_COMMENT, PRODUCT_STATUS, PRODUCT_ALL_STARS, PRODUCT_ALL_COMMENTS) values(?,?,?,?,?,?,?)";
-	private static final String updateSQL = "update PRODUCT set RODUCT_TYPE_NO = ?, PRODUCT_NAME = ?, PRODUCT_PRICE = ?, PRODUCT_COMMENT = ?, PRODUCT_STATUS = ?, PRODUCT_ALL_STARS = ?, PRODUCT_ALL_COMMENTS = ? where PRODUCT_NO = ?";
-	private static final String findByClassNo = "SELECT * FROM PRODUCTS WHERE PRODUCT_NO = ?";
-	private static final String selectAll = "SELECT * FROM PRODUCT";
+	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+	public static final String URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
+	public static final String USER = "David";
+	public static final String PASSWORD = "123456";
+	
+	public static final String INSERT_SQL ="INSERT INTO PRODUCT VALUES (?,?,?,?,?,?,?,?)";
+	public static final String UPDATE_SQL ="UPDATE PRODUCT SET PRODUCT_TYPE_NO=?,PRODUCT_NAME=?,PRODUCT_PRICE=?,PRODUCT_COMMENT=?,PRODUCT_STATUS=?,PRODUCT_ALL_STARS=?,PRODUCT_ALL_COMMENTS=? WHERE PRODUCT_NO=?";
+	public static final String DELETE_SQL ="DELETE FROM PRODUCT WHERE PRODUCT_NO=?";
+	public static final String FIND_BY_DEPTNO_SQL = "SELECT * FROM PRODUCT WHERE PRODUCT_NO = ?";
+	public static final String GET_ALL_SQL = "SELECT * FROM PRODUCT";
 	
 	static {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		}
-	}
-	
-	@Override
-	public productVO insert(productVO product) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			String[] cols = { "PRODUCT_NO" };
-			PreparedStatement pstmt = createInsertPreparedStatement(con, product, insertSQL, cols);
-			pstmt.executeUpdate();
-			ResultSet rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
-				int key = rs.getInt(1);
-				product.setPRODUCT_NO(key);
-			}
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-		return product;
-	}
-
-	
-
-	@Override
-	public void update(productVO product) {
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = createUpdatePreparedStatement(con, product, updateSQL);
-			pstmt.executeUpdate();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-	}
-
-	
-
-	@Override
-	public productVO findByproductNo(Integer PRODUCT_NO) {
-		productVO product = new productVO();
-
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(findByClassNo);
-			pstmt.setInt(1, PRODUCT_NO);
-			ResultSet rs = pstmt.executeQuery();
-			product = selectOneByproductNo(rs);
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-		return product;
-	}
-
-	
-
-	@Override
-	public List<productVO> getAllproduct() {
-		List<productVO> productList = new ArrayList<>();
-
-		try (Connection con = DriverManager.getConnection(SQLURL, SQLUSER, SQLPASSWORD)) {
-			PreparedStatement pstmt = con.prepareStatement(selectAll);
-			ResultSet rs = pstmt.executeQuery();
-			productList = selectAllproduct(productList, rs);
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-		return productList;
-	}
-
-	
-
-	public static void main(String[] args) {
-		productDAO_interface dao = new productDAO();
-		
-
-//		//test insert pet class
-//		productVO productVO1 = new productVO();
-//		productVO1.setPRODUCT_TYPE_NO(1);
-//		productVO1.setPRODUCT_NAME("AB牌綜合飼料");
-//		productVO1.setPRODUCT_PRICE(1500);
-//		productVO1.setPRODUCT_COMMENT("寵物通用飼料");
-//		productVO1.setPRODUCT_STATUS("0");
-//		productVO1.setPRODUCT_ALL_STARS(4);
-//		productVO1.setPRODUCT_ALL_COMMENTS(50);		
-//		productVO product =  dao.insert(productVO1);
-//		System.out.println(productVO1.getPRODUCT_NO());
-
-//		//test update pet class
-//		productVO productVO2 = new productVO();
-//		productVO2.setPRODUCT_TYPE_NO(2);
-//		productVO2.setPRODUCT_NAME("A牌貓咪飼料");
-//		productVO2.setPRODUCT_PRICE(899);
-//		productVO2.setPRODUCT_COMMENT("頂級鮭魚口味");
-//		productVO2.setPRODUCT_STATUS("1");
-//		productVO2.setPRODUCT_ALL_STARS(5);
-//		productVO2.setPRODUCT_ALL_COMMENTS(585);
-//		productVO2.setPRODUCT_NO(2);
-//		dao.update(productVO2);
-
-//		//test select one pet class
-//		productVO productVO = new productVO();
-//		productVO product3 = dao.findByproductNo(2);
-//		System.out.print(product3.getPRODUCT_NO() + ",");
-//		System.out.print(product3.getPRODUCT_TYPE_NO() + ",");
-//		System.out.print(product3.getPRODUCT_NAME() + ",");
-//		System.out.print(product3.getPRODUCT_PRICE() + ",");
-//		System.out.print(product3.getPRODUCT_COMMENT() + ",");		
-//		System.out.print(product3.getPRODUCT_STATUS() + ",");		
-//		System.out.print(product3.getPRODUCT_ALL_STARS() + ",");		
-//		System.out.println(product3.getPRODUCT_ALL_COMMENTS() + ",");
-//		System.out.println("---------------------");
-		
-		//test select all pet class
-		productVO productVO = new productVO();
-		List<productVO> productList = dao.getAllproduct();
-		for (productVO product4 : productList) {
-			System.out.print(product4.getPRODUCT_NO() + ",");
-			System.out.print(product4.getPRODUCT_TYPE_NO() + ",");
-			System.out.print(product4.getPRODUCT_NAME() + ",");
-			System.out.print(product4.getPRODUCT_PRICE() + ",");
-			System.out.print(product4.getPRODUCT_COMMENT() + ",");		
-			System.out.print(product4.getPRODUCT_STATUS() + ",");		
-			System.out.print(product4.getPRODUCT_ALL_STARS() + ",");		
-			System.out.println(product4.getPRODUCT_ALL_COMMENTS() + ",");		
-			System.out.println("---------------------");
-		}
-
-	}
-	
-	private PreparedStatement createInsertPreparedStatement(Connection con, productVO product, String SQL,
-			String[] cols) throws SQLException {
-		PreparedStatement pstmt = con.prepareStatement(SQL, cols);
-		pstmt.setInt(1, product.getPRODUCT_TYPE_NO());
-		pstmt.setString(2, product.getPRODUCT_NAME());
-		pstmt.setInt(3, product.getPRODUCT_PRICE());
-		pstmt.setString(4, product.getPRODUCT_COMMENT());
-		pstmt.setString(5, product.getPRODUCT_STATUS());
-		pstmt.setInt(6, product.getPRODUCT_ALL_STARS());
-		pstmt.setInt(7, product.getPRODUCT_ALL_COMMENTS());
-		return pstmt;
-	}
-	
-	private PreparedStatement createUpdatePreparedStatement(Connection con, productVO product, String SQL)
-			throws SQLException {
-		PreparedStatement pstmt = con.prepareStatement(SQL);
-		pstmt.setInt(1, product.getPRODUCT_TYPE_NO());
-		pstmt.setString(2, product.getPRODUCT_NAME());
-		pstmt.setInt(3, product.getPRODUCT_PRICE());
-		pstmt.setString(4, product.getPRODUCT_COMMENT());
-		pstmt.setString(5, product.getPRODUCT_STATUS());
-		pstmt.setInt(6, product.getPRODUCT_ALL_STARS());
-		pstmt.setInt(7, product.getPRODUCT_ALL_COMMENTS());
-		pstmt.setInt(8, product.getPRODUCT_NO());
-		return pstmt;
-	}
-	
-	private productVO selectOneByproductNo(ResultSet rs) {
-		productVO product = new productVO();
-		try {
-			while (rs.next()) {
-				product.setPRODUCT_NO(rs.getInt("PRODUCT_NO"));
-				product.setPRODUCT_TYPE_NO(rs.getInt("PRODUCT_TYPE_NO"));
-				product.setPRODUCT_NAME(rs.getString("PRODUCT_NAME"));
-				product.setPRODUCT_PRICE(rs.getInt("PRODUCT_PRICE"));
-				product.setPRODUCT_COMMENT(rs.getString("PRODUCT_COMMENT"));
-				product.setPRODUCT_STATUS(rs.getString("PRODUCT_STATUS"));
-				product.setPRODUCT_ALL_STARS(rs.getInt("PRODUCT_ALL_STARS"));
-				product.setPRODUCT_ALL_COMMENTS(rs.getInt("PRODUCT_ALL_COMMENTS"));
-			}
-		} catch (SQLException e) {
+			Class.forName(DRIVER);	
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return product;
 	}
-	
-	private List<productVO> selectAllproduct(List<productVO> productList, ResultSet rs) {
-		try {
-			while (rs.next()) {
-				productVO product = new productVO();
-				product.setPRODUCT_NO(rs.getInt("PRODUCT_NO"));
-				product.setPRODUCT_TYPE_NO(rs.getInt("PRODUCT_TYPE_NO"));
-				product.setPRODUCT_NAME(rs.getString("PRODUCT_NAME"));
-				product.setPRODUCT_PRICE(rs.getInt("PRODUCT_PRICE"));
-				product.setPRODUCT_COMMENT(rs.getString("PRODUCT_COMMENT"));
-				product.setPRODUCT_STATUS(rs.getString("PRODUCT_STATUS"));
-				product.setPRODUCT_ALL_STARS(rs.getInt("PRODUCT_ALL_STARS"));
-				product.setPRODUCT_ALL_COMMENTS(rs.getInt("PRODUCT_ALL_COMMENTS"));
-				productList.add(product);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return productList;
 
+	@Override
+	public void insert(productVO amrVO) {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL,USER,PASSWORD);
+			pst = conn.prepareStatement(INSERT_SQL);
+			pst.setInt(1,amrVO.getProduct_no());
+			pst.setInt(2,amrVO.getProduct_type_no());
+			pst.setString(3,amrVO.getProduct_name());
+			pst.setInt(4,amrVO.getProduct_price());
+			pst.setString(5,amrVO.getProduct_comment());
+			pst.setString(6,amrVO.getProduct_status());
+			pst.setInt(7,amrVO.getProduct_all_stars());
+			pst.setInt(8,amrVO.getProduct_all_comments());
+			pst.executeUpdate();
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if(pst!=null) {
+				try {
+					pst.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}	
+			}
+			
+			if(conn !=null) {
+				try {
+					conn.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update(productVO amrVO) {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL,USER,PASSWORD);
+			pst = conn.prepareStatement(UPDATE_SQL);
+			
+			pst.setInt(1,amrVO.getProduct_type_no());
+			pst.setString(2,amrVO.getProduct_name());
+			pst.setInt(3,amrVO.getProduct_price());
+			pst.setString(4,amrVO.getProduct_comment());
+			pst.setString(5,amrVO.getProduct_status());
+			pst.setInt(6,amrVO.getProduct_all_stars());
+			pst.setInt(7,amrVO.getProduct_all_comments());
+			pst.setInt(8,amrVO.getProduct_no());
+			pst.executeUpdate();
+			
+		}catch(SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if(pst!=null) {
+				try {
+					pst.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}	
+			}
+			
+			if(conn !=null) {
+				try {
+					conn.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void delete(Integer amrno) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL,USER,PASSWORD);
+			pstmt = con.prepareStatement(DELETE_SQL);
+			
+			pstmt.setInt(1,amrno);
+			
+			pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}	
+		}
+	}
+
+	@Override
+	public productVO findByPrimaryKey(Integer amrno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		productVO amrVO = null;
+		
+		try {
+			con = DriverManager.getConnection(URL,USER,PASSWORD);
+			pstmt = con.prepareStatement(FIND_BY_DEPTNO_SQL);
+			pstmt.setInt(1,amrno);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				amrVO = new productVO();
+				amrVO.setProduct_no(amrno);
+				amrVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
+				amrVO.setProduct_name(rs.getString("PRODUCT_NAME"));
+				amrVO.setProduct_price(rs.getInt("PRODUCT_PRICE"));
+				amrVO.setProduct_comment(rs.getString("PRODUCT_COMMENT"));
+				amrVO.setProduct_status(rs.getString("PRODUCT_STATUS"));
+				amrVO.setProduct_all_stars(rs.getInt("PRODUCT_ALL_STARS"));
+				amrVO.setProduct_all_comments(rs.getInt("PRODUCT_ALL_COMMENTS"));
+			}
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+		return amrVO;
+	}
+
+	@Override
+	public List<productVO> getAll() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List <productVO> amrList = new ArrayList<>();
+		
+		try {
+			
+			con = DriverManager.getConnection(URL,USER,PASSWORD);
+			pstmt = con.prepareStatement(GET_ALL_SQL);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				productVO amrVO = new productVO();
+				amrVO.setProduct_no(rs.getInt("PRODUCT_NO"));
+				amrVO.setProduct_type_no(rs.getInt("PRODUCT_TYPE_NO"));
+				amrVO.setProduct_name(rs.getString("PRODUCT_NAME"));
+				amrVO.setProduct_price(rs.getInt("PRODUCT_PRICE"));
+				amrVO.setProduct_comment(rs.getString("PRODUCT_COMMENT"));
+				amrVO.setProduct_status(rs.getString("PRODUCT_STATUS"));
+				amrVO.setProduct_all_stars(rs.getInt("PRODUCT_ALL_STARS"));
+				amrVO.setProduct_all_comments(rs.getInt("PRODUCT_ALL_COMMENTS"));
+				amrList.add(amrVO);
+			}
+			
+		} catch(SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+
+		return amrList;
+		
 	}
 }

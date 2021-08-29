@@ -4,12 +4,14 @@ import java.util.List;
 
 public interface productPhotosDAO_interface {
 	
-	public productPhotosVO insert(productPhotosVO productPhotos);
+	public void insert(productPhotosVO productPhotos);
 	
 	public void update(productPhotosVO productPhotos);
-
-	public productPhotosVO findByproductPhotosNo(Integer ADOPT_APPLY_NO);
-
-	public List<productPhotosVO> getAllproductPhotos();
+	
+	public void delete(Integer product_photo_no);
+	
+	public productPhotosVO findByPrimaryKey(Integer product_photo_no);
+	
+	public List<productPhotosVO> getAll();
 
 }

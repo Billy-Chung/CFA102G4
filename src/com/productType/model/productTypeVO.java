@@ -1,20 +1,22 @@
 package com.productType.model;
 
-public class productTypeVO {
+import java.io.Serializable;
+
+public class productTypeVO implements Serializable {
 	
-	private Integer PRODUCT_TYPE_NO;
-	private String PRODUCT_TYPE_NAME;
+	private Integer product_type_no;
+	private String product_type_name;
 	
-	public Integer getPRODUCT_TYPE_NO() {
-		return PRODUCT_TYPE_NO;
+	public Integer getProduct_type_no() {
+		return product_type_no;
 	}
-	public void setPRODUCT_TYPE_NO(Integer pRODUCT_TYPE_NO) {
-		PRODUCT_TYPE_NO = pRODUCT_TYPE_NO;
+	public void setProduct_type_no(Integer product_type_no) {
+		this.product_type_no = product_type_no;
 	}
-	public String getPRODUCT_TYPE_NAME() {
-		return PRODUCT_TYPE_NAME;
+	public String getProduct_type_name() {
+		return product_type_name;
 	}
-	public void setPRODUCT_TYPE_NAME(String pRODUCT_TYPE_NAME) {
-		PRODUCT_TYPE_NAME = pRODUCT_TYPE_NAME;
+	public void setProduct_type_name(String product_type_name) {
+		this.product_type_name = product_type_name;
 	}
 }
