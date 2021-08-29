@@ -16,8 +16,8 @@ public class AdoptMemberDAO implements AdoptMemberDAO_interface {
 	private static final String SQL_USER = "David";
 	private static final String SQL_PASSWORD = "123456";
 	private static final String INSERT_SQL = "insert into ADOPT_MEMBER (ADOPT_MEB_NAME,ADOPT_MEB_COMMENT,ADOPT_MEB_PHOTO,ADOPT_MEB_ADDRESS,ADOPT_MEB_PHONE,ADOPT_MEB_EMAIL,ADOPT_MEB_ACCOUNT,ADOPT_MEB_PASSWORD,ADOPT_MEB_STATE,ADOPT_MEB_AUTH,ADOPT_MEB_HOLIDAY,ADOPT_MEB_LIMIT) values(?,?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_SQL = "update ADOPT_MEMBER set ADOPT_MEB_NAME = ?, ADOPT_MEB_COMMENT = ?, ADOPT_MEB_PHOTO = ?, ADOPT_MEB_ADDRESS = ?, ADOPT_MEB_PHONE = ?, ADOPT_MEB_EMAIL = ?, ADOPT_MEB_ACCOUNT = ?, ADOPT_MEB_PASSWORD = ?, ADOPT_MEB_STATE = ?, ADOPT_MEB_AUTH = ?, ADOPT_MEB_HOLIDAY = ?, ADOPT_MEB_LIMIT = ? where adopt_meb_no = ?";
-	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_MEMBER WHERE adopt_meb_no = ?";
+	private static final String UPDATE_SQL = "update ADOPT_MEMBER set ADOPT_MEB_NAME = ?, ADOPT_MEB_COMMENT = ?, ADOPT_MEB_PHOTO = ?, ADOPT_MEB_ADDRESS = ?, ADOPT_MEB_PHONE = ?, ADOPT_MEB_EMAIL = ?, ADOPT_MEB_ACCOUNT = ?, ADOPT_MEB_PASSWORD = ?, ADOPT_MEB_STATE = ?, ADOPT_MEB_AUTH = ?, ADOPT_MEB_HOLIDAY = ?, ADOPT_MEB_LIMIT = ? where ADOPT_MEB_NO = ?";
+	private static final String FIND_BY_PK = "SELECT * FROM ADOPT_MEMBER WHERE ADOPT_MEB_NO = ?";
 	private static final String FIND_BY_NAME = "SELECT * FROM ADOPT_MEMBER WHERE ADOPT_MEB_NAME like ?";
 	private static final String SELECT_ALL = "SELECT * FROM ADOPT_MEMBER";
 

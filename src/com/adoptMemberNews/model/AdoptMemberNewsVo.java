@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class AdoptMemberNewsVo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private Integer adopt_meb_news_no;
 	private Integer adopt_meb_no;
 	private String adopt_meb_news_title;
@@ -55,4 +58,8 @@ public class AdoptMemberNewsVo implements Serializable {
 	public void setAdopt_meb_news_date(Date adopt_meb_news_date) {
 		this.adopt_meb_news_date = adopt_meb_news_date;
 	}	
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

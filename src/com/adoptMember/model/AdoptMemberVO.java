@@ -3,6 +3,9 @@ package com.adoptMember.model;
 import java.io.Serializable;
 
 public class AdoptMemberVO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Integer adopt_meb_no;
 	private String adopt_meb_name;
 	private String adopt_meb_comment;
@@ -96,6 +99,8 @@ public class AdoptMemberVO implements Serializable {
 		this.adopt_meb_limit = adopt_meb_limit;
 	}
 	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

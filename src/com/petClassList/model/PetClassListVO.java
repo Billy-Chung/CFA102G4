@@ -3,6 +3,9 @@ package com.petClassList.model;
 import java.io.Serializable;
 
 public class PetClassListVO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Integer pet_class_list_no;
 	private Integer adopt_pat_no;
 	private Integer pet_class_no;
@@ -40,7 +43,9 @@ public class PetClassListVO implements Serializable {
 		this.pet_class_list_state = pet_class_list_state;
 	}
 	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	
 }

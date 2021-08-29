@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PetClassVO implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer pet_class_no;
 	private String pet_class_name;
 	private String pet_class_state;
@@ -28,6 +30,8 @@ public class PetClassVO implements Serializable {
 		this.pet_class_state = pet_class_state;
 	}
 	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

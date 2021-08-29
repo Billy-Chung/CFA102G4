@@ -3,7 +3,9 @@ package com.adoptPetPhoto.model;
 import java.io.Serializable;
 
 
-public class AdoptPetPhotoVO implements Serializable {
+public class AdoptPetPhotoVO implements Serializable {	
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Integer adopt_pet_photo_no;
 	private Integer adopt_pet_no;	
@@ -29,8 +31,8 @@ public class AdoptPetPhotoVO implements Serializable {
 		this.adopt_pet_photo = adopt_pet_photo;
 	}
 	
-	
-	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}	
 	
 }

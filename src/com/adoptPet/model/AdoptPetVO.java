@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class AdoptPetVO implements Serializable {
-
+	
+	private static final long serialVersionUID = 1L;
+	
 	private Integer adopt_pet_no;
 	private	Integer adopt_meb_no;
 	private Integer gen_meb_no;
@@ -105,6 +107,8 @@ public class AdoptPetVO implements Serializable {
 		this.adopt_pet_state = adopt_pet_state;
 	}
 	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }
