@@ -85,49 +85,6 @@ public class PetClassListDAO implements PetClassList_interface {
 		return petClassLists;
 	}
 
-	public static void main(String[] args) {
-		PetClassList_interface dao = new PetClassListDAO();
-		PetClassListVO petClassList = new PetClassListVO();
-
-//		test insert
-//		petClassList.setAdopt_pat_no(1);
-//		petClassList.setPet_class_no(2);
-//		petClassList.setGen_meb_pet_no(null);
-//		petClassList.setPet_class_list_state("0");
-//		PetClassListVO petClassLists =  dao.insert(petClassList);
-//		System.out.println(petClassList.getPet_class_list_no());
-
-//		test find by ADOPT_PET_NO 
-//		List<PetClassListVO> petClassLists = dao.findByAdoptPetNo(1);
-//		for (PetClassListVO petClassList : petClassLists) {
-//			System.out.print(petClassList.getPet_class_list_no() + ",");
-//			System.out.print(petClassList.getAdopt_pat_no() + ",");
-//			System.out.print(petClassList.getPet_class_no() + ",");
-//			System.out.print(petClassList.getGen_meb_pet_no() + ",");
-//			System.out.println(petClassList.getPet_class_list_state() + ",");
-//			System.out.println("---------------------");
-//		}
-//			pmystmt.setNull(17, java.sql.Types.TIMESTAMP);
-
-//		test find by PET_CLASS_NO
-//		List<PetClassListVO> petClassLists = dao.findByPetClassNo(1);
-//		for (PetClassListVO petClassList : petClassLists) {
-//			System.out.print(petClassList.getPet_class_list_no() + ",");
-//			System.out.print(petClassList.getAdopt_pat_no() + ",");
-//			System.out.print(petClassList.getPet_class_no() + ",");
-//			System.out.print(petClassList.getGen_meb_pet_no() + ",");
-//			System.out.println(petClassList.getPet_class_list_state() + ",");
-//			System.out.println("---------------------");
-//		}
-
-//		test update
-		petClassList.setGen_meb_pet_no(1);
-		petClassList.setPet_class_list_state("0");
-		petClassList.setPet_class_list_no(1);
-		dao.update(petClassList);
-
-	}
-
 	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassListVO petClassList, String SQL,
 			String[] cols) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL, cols);

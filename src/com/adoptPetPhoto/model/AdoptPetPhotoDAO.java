@@ -83,55 +83,6 @@ public class AdoptPetPhotoDAO implements AdoptPetPhoto_interface {
 		return adoptMemberPhotoList;
 	}
 
-	public static void main(String[] args) {
-		AdoptPetPhoto_interface dao = new AdoptPetPhotoDAO();
-		AdoptPetPhotoVO AdoptPetPhotoVO = new AdoptPetPhotoVO();
-
-//		test insert
-//		AdoptPetPhotoVO.setAdopt_pet_no(2);		
-//		try {
-//			byte[] pic = getPictureByteArray("images/adoptMember2.jpg");
-//			AdoptPetPhotoVO.setAdopt_pet_photo(pic);
-//		} catch (IOException e) {			
-//			e.printStackTrace();
-//		}				
-//		AdoptPetPhotoVO adoptMember =  dao.insert(AdoptPetPhotoVO);
-//		System.out.println(adoptMember.getAdopt_pet_photo_no());
-
-//		test update
-
-//		try {
-//			byte[] pic = getPictureByteArray("images/adoptMember2.jpg");
-//			AdoptPetPhotoVO.setAdopt_pet_photo(pic);
-//		} catch (IOException e) {			
-//			e.printStackTrace();
-//		}	
-//		
-//		AdoptPetPhotoVO.setAdopt_pet_photo_no(1);	
-//		dao.update(AdoptPetPhotoVO);
-
-//		test find by pet No
-//		List<AdoptPetPhotoVO> adoptMemberPhotoList = dao.findByadoptPetNo(2);
-//		for (AdoptPetPhotoVO adoptPetPhoto : adoptMemberPhotoList) {
-//			System.out.print(adoptPetPhoto.getAdopt_pet_photo_no() + ",");
-//			System.out.print(adoptPetPhoto.getAdopt_pet_no() + ",");
-//			System.out.print(adoptPetPhoto.getAdopt_pet_photo() + ",");
-//			System.out.println("---------------------");
-//		}
-		
-//		test delete
-//		dao.delete(1);
-		
-	}
-
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		FileInputStream fis = new FileInputStream(path);
-		byte[] buffer = new byte[fis.available()];
-		fis.read(buffer);
-		fis.close();
-		return buffer;
-	}
-
 	private PreparedStatement createInsertPreparedStatement(Connection con, AdoptPetPhotoVO adoptPetPhoto, String SQL,
 			String[] cols) throws SQLException {
 		PreparedStatement pstmt = con.prepareStatement(SQL, cols);

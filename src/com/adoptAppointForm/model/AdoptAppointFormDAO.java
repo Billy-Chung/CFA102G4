@@ -83,50 +83,7 @@ public class AdoptAppointFormDAO implements AdoptAppointForm_interface {
 		}
 		return adoptAppointFormList;
 	}
-	
-	public static void main(String[] args) {
 		
-		AdoptAppointForm_interface dao = new AdoptAppointFormDAO();
-//		AdoptAppointFormVO adoptAppointForm = new AdoptAppointFormVO();
-		
-//		test insert
-//		adoptAppointForm.setAdopt_meb_no(1);
-//		adoptAppointForm.setAppoint_date(java.sql.Date.valueOf("2016-08-29"));
-//		adoptAppointForm.setFinifh_appoint_num("000000000000000000000000");
-//		adoptAppointForm.setAppoint_limit("000000003333333333000000");
-//		AdoptAppointFormVO adoptAppointFormData = dao.insert(adoptAppointForm);
-//		System.out.println(adoptAppointFormData.getAppoint_form_no());
-		
-		
-//		test update
-//		adoptAppointForm.setFinifh_appoint_num("000000021213123121000000");
-//		adoptAppointForm.setAppoint_limit("000000003333333000000000");
-//		adoptAppointForm.setAdopt_meb_no(1);
-//		dao.update(adoptAppointForm);
-		
-//		test find by pk
-//		AdoptAppointFormVO adoptAppointForm = dao.findByPK(1);
-//		System.out.print(adoptAppointForm.getAppoint_form_no() + ",");
-//		System.out.print(adoptAppointForm.getAdopt_meb_no() + ",");
-//		System.out.print(adoptAppointForm.getAppoint_date() + ",");
-//		System.out.print(adoptAppointForm.getFinifh_appoint_num() + ",");
-//		System.out.print(adoptAppointForm.getAppoint_limit() + ",");	
-		
-		
-//		test find by adopt meb no
-		List<AdoptAppointFormVO> adoptAppointFormList = dao.findAdoptMebNo(2);
-		for(AdoptAppointFormVO adoptAppointForm : adoptAppointFormList ) {
-			System.out.print(adoptAppointForm.getAppoint_form_no() + ",");
-			System.out.print(adoptAppointForm.getAdopt_meb_no() + ",");
-			System.out.print(adoptAppointForm.getAppoint_date() + ",");
-			System.out.print(adoptAppointForm.getFinifh_appoint_num() + ",");
-			System.out.print(adoptAppointForm.getAppoint_limit() + ",");
-		}
-		
-		
-		
-	}
-
 	private PreparedStatement createInsertPreparedStatement(Connection con, AdoptAppointFormVO adoptAppointForm,
 			String SQL, String[] cols) throws SQLException {
 	

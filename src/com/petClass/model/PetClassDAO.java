@@ -88,42 +88,6 @@ public class PetClassDAO implements PetClasss_interface {
 		}
 		return petClassList;
 	}
-
-	
-
-	public static void main(String[] args) {
-		PetClasss_interface dao = new PetClassDAO();
-		PetClassVO PetClassVO = new PetClassVO();
-
-//		test insert pet class
-		PetClassVO.setPet_class_name("壁虎");
-		PetClassVO.setPet_class_state("1");		
-		PetClassVO petClass =  dao.insert(PetClassVO);
-		System.out.println(petClass.getPet_class_no());
-
-//		test update pet class
-//		PetClassVO.setPet_class_name("老鼠");
-//		PetClassVO.setPet_class_state("1");
-//		PetClassVO.setPet_class_no(8);
-//		dao.update(PetClassVO);
-
-//		test select one pet class
-//		PetClassVO petClass = dao.findBypetClassNo(2);
-//		System.out.print(petClass.getPet_class_no() + ",");
-//		System.out.print(petClass.getPet_class_name() + ",");
-//		System.out.println(petClass.getPet_class_state() + ",");
-//		System.out.println("---------------------");
-		
-//		test select all pet class
-//		List<PetClassVO> petClassList = dao.getAllpetClass();
-//		for (PetClassVO petClass : petClassList) {
-//			System.out.print(petClass.getPet_class_no() + ",");
-//			System.out.print(petClass.getPet_class_name() + ",");
-//			System.out.println(petClass.getPet_class_state() + ",");				
-//			System.out.println("---------------------");
-//		}
-
-	}
 	
 	private PreparedStatement createInsertPreparedStatement(Connection con, PetClassVO petClass, String SQL,
 			String[] cols) throws SQLException {
