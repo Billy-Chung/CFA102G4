@@ -10,6 +10,9 @@ public class product_promotions_detailVO implements Serializable{
 	private Integer product_no;
 	private Integer product_pro_price;
 	private Integer product_pro_special_price;
+	
+	
+	
 	public Integer getProduct_pro_detail_no() {
 		return product_pro_detail_no;
 	}
