@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.adoptPet.model.*" %>
+<%@ page import="com.adoptPetPhoto.model.*" %>
+
+<%
+	AdoptPetDAO dao = new AdoptPetDAO();
+	List<AdoptPetVO> list = dao.getAllAdoptPet();
+	pageContext.setAttribute("list", list);
+%>
 
 <!DOCTYPE html>
 <html lang="zh-Hans">
@@ -66,7 +75,7 @@
                 <a  href="petView.html">寵物資料管理</a>
             </div>
             <div class="oneTopmenu">
-                <a href="petMember.html">機構資訊管理</a>
+                <a href="<%=request.getContextPath()%>/front_end/adoptMember/petMember.html">機構資訊管理</a>
             </div>
             <div class="oneTopmenu">
                 <a>領養管理</a>
@@ -88,11 +97,13 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            表單撰寫...
+                        	<FORM METHOD="post" ACTION="emp.do" name="form1">
+                            	<%@ include file="addPet.jsp" %>
+                            	</FORM>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">關閉</button>
-                            <button type="button" class="btn btn-outline-success">新增</button>
+                            <button type="submit" class="btn btn-outline-success">新增</button>
                         </div>
                     </div>
                 </div>
@@ -110,66 +121,22 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card pdct_card" style="width: 18rem;">
+            
+            <%@ include file="page1.file" %>
+            <c:forEach var="AdoptPetVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					
+			<div class="card pdct_card" style="width: 18rem;">
                 <img src="images/dog1.jpg" class="card-img-top" alt="狗">
-                <div class="card-body">
-                    <h5 class="card-title">寵物名稱</h5>
-                    <p class="card-text">寵物簡介</p>
+               	<div class="card-body">
+                    <h5 class="card-title">${AdoptPetVO.adopt_pet_breeds}</h5>
+                    <p class="card-text">${AdoptPetVO.adopt_pet_gender}</p>
                     <button href="#" class="btn btn-outline-info" data-bs-toggle="modal"
                         data-bs-target="#changepet">修改詳細資訊</button>
                 </div>
             </div>
-
-            <div class="card pdct_card" style="width: 18rem;">
-                <img src="images/dog1.jpg" class="card-img-top" alt="狗">
-                <div class="card-body">
-                    <h5 class="card-title">寵物名稱</h5>
-                    <p class="card-text">寵物簡介</p>
-                    <button href="" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#changepet">修改詳細資訊</button>
-                </div>
-            </div>
-
-            <div class="card pdct_card" style="width: 18rem;">
-                <img src="images/dog1.jpg" class="card-img-top" alt="狗">
-                <div class="card-body">
-                    <h5 class="card-title">寵物名稱</h5>
-                    <p class="card-text">寵物簡介</p>
-                    <button href="#" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#changepet">修改詳細資訊</button>
-                </div>
-            </div>
-
-            <div class="card pdct_card" style="width: 18rem;">
-                <img src="images/dog1.jpg" class="card-img-top" alt="狗">
-                <div class="card-body">
-                    <h5 class="card-title">寵物名稱</h5>
-                    <p class="card-text">寵物簡介</p>
-                    <button href="#" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#changepet">修改詳細資訊</button>
-                </div>
-            </div>
-
-            <div class="card pdct_card" style="width: 18rem;">
-                <img src="images/dog1.jpg" class="card-img-top" alt="狗">
-                <div class="card-body">
-                    <h5 class="card-title">寵物名稱</h5>
-                    <p class="card-text">寵物簡介</p>
-                    <button href="#" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#changepet">修改詳細資訊</button>
-                </div>
-            </div>
-
-            <div class="card pdct_card" style="width: 18rem;">
-                <img src="images/dog1.jpg" class="card-img-top" alt="狗">
-                <div class="card-body">
-                    <h5 class="card-title">寵物名稱</h5>
-                    <p class="card-text">寵物簡介</p>
-                    <button href="#" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#changepet">修改詳細資訊</button>
-                </div>
-            </div>
+					
+			</c:forEach>          
+ 
 
             <!-- 寵物modal -->
             <div class="modal fade" id="changepet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -194,19 +161,9 @@
         </div>
 
     </div>
-    </div>   
-
-    <div class="page">
-        <ul class="pagination">
-            <li><a href="">&lt;</a></li>
-            <li><a href="" class="-on">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li><a href="">&gt;</a></li>
-        </ul>
-    </div>
+    
+    
+    <%@ include file="page2.file" %>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
