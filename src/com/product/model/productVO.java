@@ -2,61 +2,61 @@ package com.product.model;
 
 public class productVO {
 	
-	private Integer PRODUCT_NO;
-	private Integer PRODUCT_TYPE_NO;
-	private String PRODUCT_NAME;
-	private Integer PRODUCT_PRICE;
-	private String PRODUCT_COMMENT;
-	private String PRODUCT_STATUS;
-	private Integer PRODUCT_ALL_STARS;
-	private Integer PRODUCT_ALL_COMMENTS;
+	private Integer product_no;
+	private Integer product_type_no;
+	private String product_name;
+	private Integer product_price;
+	private String product_comment;
+	private String product_status;
+	private Integer product_all_stars;
+	private Integer product_all_comments;
 	
-	public Integer getPRODUCT_NO() {
-		return PRODUCT_NO;
+	public Integer getProduct_no() {
+		return product_no;
 	}
-	public void setPRODUCT_NO(Integer pRODUCT_NO) {
-		PRODUCT_NO = pRODUCT_NO;
+	public void setProduct_no(Integer product_no) {
+		this.product_no = product_no;
 	}
-	public Integer getPRODUCT_TYPE_NO() {
-		return PRODUCT_TYPE_NO;
+	public Integer getProduct_type_no() {
+		return product_type_no;
 	}
-	public void setPRODUCT_TYPE_NO(Integer pRODUCT_TYPE_NO) {
-		PRODUCT_TYPE_NO = pRODUCT_TYPE_NO;
+	public void setProduct_type_no(Integer product_type_no) {
+		this.product_type_no = product_type_no;
 	}
-	public String getPRODUCT_NAME() {
-		return PRODUCT_NAME;
+	public String getProduct_name() {
+		return product_name;
 	}
-	public void setPRODUCT_NAME(String pRODUCT_NAME) {
-		PRODUCT_NAME = pRODUCT_NAME;
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
-	public Integer getPRODUCT_PRICE() {
-		return PRODUCT_PRICE;
+	public Integer getProduct_price() {
+		return product_price;
 	}
-	public void setPRODUCT_PRICE(Integer pRODUCT_PRICE) {
-		PRODUCT_PRICE = pRODUCT_PRICE;
+	public void setProduct_price(Integer product_price) {
+		this.product_price = product_price;
 	}
-	public String getPRODUCT_COMMENT() {
-		return PRODUCT_COMMENT;
+	public String getProduct_comment() {
+		return product_comment;
 	}
-	public void setPRODUCT_COMMENT(String pRODUCT_COMMENT) {
-		PRODUCT_COMMENT = pRODUCT_COMMENT;
+	public void setProduct_comment(String product_comment) {
+		this.product_comment = product_comment;
 	}
-	public String getPRODUCT_STATUS() {
-		return PRODUCT_STATUS;
+	public String getProduct_status() {
+		return product_status;
 	}
-	public void setPRODUCT_STATUS(String pRODUCT_STATUS) {
-		PRODUCT_STATUS = pRODUCT_STATUS;
+	public void setProduct_status(String product_status) {
+		this.product_status = product_status;
 	}
-	public Integer getPRODUCT_ALL_STARS() {
-		return PRODUCT_ALL_STARS;
+	public Integer getProduct_all_stars() {
+		return product_all_stars;
 	}
-	public void setPRODUCT_ALL_STARS(Integer pRODUCT_ALL_STARS) {
-		PRODUCT_ALL_STARS = pRODUCT_ALL_STARS;
+	public void setProduct_all_stars(Integer product_all_stars) {
+		this.product_all_stars = product_all_stars;
 	}
-	public Integer getPRODUCT_ALL_COMMENTS() {
-		return PRODUCT_ALL_COMMENTS;
+	public Integer getProduct_all_comments() {
+		return product_all_comments;
 	}
-	public void setPRODUCT_ALL_COMMENTS(Integer pRODUCT_ALL_COMMENTS) {
-		PRODUCT_ALL_COMMENTS = pRODUCT_ALL_COMMENTS;
+	public void setProduct_all_comments(Integer product_all_comments) {
+		this.product_all_comments = product_all_comments;
 	}
 }

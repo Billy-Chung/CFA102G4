@@ -2,26 +2,26 @@ package com.productPhotos.model;
 
 public class productPhotosVO {
 	
-	private Integer PRODUCT_PHOTO_NO;
-	private Integer PRODUCT_NO;
-	private byte[] PRODUCT_PHOTO;
+	private Integer product_photo_no;
+	private Integer product_no;
+	private byte[] product_photo;
 	
-	public Integer getPRODUCT_PHOTO_NO() {
-		return PRODUCT_PHOTO_NO;
+	public Integer getProduct_photo_no() {
+		return product_photo_no;
 	}
-	public void setPRODUCT_PHOTO_NO(Integer pRODUCT_PHOTO_NO) {
-		PRODUCT_PHOTO_NO = pRODUCT_PHOTO_NO;
+	public void setProduct_photo_no(Integer product_photo_no) {
+		this.product_photo_no = product_photo_no;
 	}
-	public Integer getPRODUCT_NO() {
-		return PRODUCT_NO;
+	public Integer getProduct_no() {
+		return product_no;
 	}
-	public void setPRODUCT_NO(Integer pRODUCT_NO) {
-		PRODUCT_NO = pRODUCT_NO;
+	public void setProduct_no(Integer product_no) {
+		this.product_no = product_no;
 	}
-	public byte[] getPRODUCT_PHOTO() {
-		return PRODUCT_PHOTO;
+	public byte[] getProduct_photo() {
+		return product_photo;
 	}
-	public void setPRODUCT_PHOTO(byte[] pRODUCT_PHOTO) {
-		PRODUCT_PHOTO = pRODUCT_PHOTO;
+	public void setProduct_photo(byte[] product_photo) {
+		this.product_photo = product_photo;
 	}
 }

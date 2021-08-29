@@ -2,19 +2,19 @@ package com.trackProduct.model;
 
 public class trackProductVO {
 
-	private Integer GEN_MEB_NO;
-	private Integer PRODUCT_NO;	
+	private Integer gen_meb_no;
+	private Integer product_no;	
 	
-	public Integer getGEN_MEB_NO() {
-		return GEN_MEB_NO;
+	public Integer getGen_meb_no() {
+		return gen_meb_no;
 	}
-	public void setGEN_MEB_NO(Integer gEN_MEB_NO) {
-		GEN_MEB_NO = gEN_MEB_NO;
+	public void setGen_meb_no(Integer gen_meb_no) {
+		this.gen_meb_no = gen_meb_no;
 	}
-	public Integer getPRODUCT_NO() {
-		return PRODUCT_NO;
+	public Integer getProduct_no() {
+		return product_no;
 	}
-	public void setPRODUCT_NO(Integer pRODUCT_NO) {
-		PRODUCT_NO = pRODUCT_NO;
+	public void setProduct_no(Integer product_no) {
+		this.product_no = product_no;
 	}
 }

@@ -4,11 +4,13 @@ import java.util.List;
 
 public interface adoptApplyDAO_interface {
 	
-		public adoptApplyVO insert(adoptApplyVO adoptApply);
+	public void insert(adoptApplyVO adoptApply);
 	
-		public void update(adoptApplyVO adoptApply);
-
-		public adoptApplyVO findByadoptApplyNo(Integer ADOPT_APPLY_NO);
+	public void update(adoptApplyVO adoptApply);
 	
-		public List<adoptApplyVO> getAlladoptApply();
+	public void delete(Integer adopt_apply_no);
+	
+	public adoptApplyVO findByPrimaryKey(Integer adopt_apply_no);
+	
+	public List<adoptApplyVO> getAll();
 }
