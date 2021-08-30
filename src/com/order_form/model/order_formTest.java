@@ -21,19 +21,19 @@ public class order_formTest {
 			order_formDAO_interface dao = new order_formDAO();
 
 			
-////有問題無法執行新增 外來鍵			
-//			// 新增
-//			order_formVO order_form1= new order_formVO();
-//			order_form1.setGen_meb_no(100);
-//			order_form1.setPay_no(2);
-//			order_form1.setLogistics_no(165);
-//			order_form1.setPromot_no(1);
-//			order_form1.setBefort_amount(1800);
-//			order_form1.setOrder_amount(1700);
-//			order_form1.setDelivery_address("桃園市龜山區萬壽路二段45號");
-//			order_form1.setOrder_time(java.sql.Date.valueOf("2021-08-29"));
-//			order_form1.setOrder_status("1");	
-//			dao.add(order_form1);
+//有問題無法執行新增 外來鍵			
+			// 新增
+			order_formVO order_form1= new order_formVO();
+			order_form1.setGen_meb_no(1);
+			order_form1.setPay_no(1);
+			order_form1.setLogistics_no(165);
+			order_form1.setPromot_no(1);
+			order_form1.setBefort_amount(1800);
+			order_form1.setOrder_amount(1700);
+			order_form1.setDelivery_address("桃園市龜山區萬壽路二段45號");
+			order_form1.setOrder_time(java.sql.Date.valueOf("2021-08-29"));
+			order_form1.setOrder_status("1");	
+			dao.add(order_form1);
 //			System.out.println("新增成功");
 
 //有問題無法執行 多一個?
