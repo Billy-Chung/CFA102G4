@@ -21,12 +21,12 @@ public class order_formTest {
 			order_formDAO_interface dao = new order_formDAO();
 
 			
-//有問題無法執行新增 外來鍵			
-			// 新增
+//////有問題無法執行新增 外來鍵			
+//			// 新增
 			order_formVO order_form1= new order_formVO();
 			order_form1.setGen_meb_no(1);
 			order_form1.setPay_no(1);
-			order_form1.setLogistics_no(165);
+			order_form1.setLogistics_no(1);
 			order_form1.setPromot_no(1);
 			order_form1.setBefort_amount(1800);
 			order_form1.setOrder_amount(1700);
@@ -34,15 +34,15 @@ public class order_formTest {
 			order_form1.setOrder_time(java.sql.Date.valueOf("2021-08-29"));
 			order_form1.setOrder_status("1");	
 			dao.add(order_form1);
-//			System.out.println("新增成功");
+////			System.out.println("新增成功");
 
-//有問題無法執行 多一個?
+////有問題無法執行 多一個?
 //			// 修改
 //			order_formVO order_form2 = new order_formVO();
 //			order_form2.setOrder_no(1);//修改目標
-//			order_form2.setGen_meb_no(99);
+//			order_form2.setGen_meb_no(1);
 //			order_form2.setPay_no(1);
-//			order_form2.setLogistics_no(166);
+//			order_form2.setLogistics_no(1);
 //			order_form2.setPromot_no(1);
 //			order_form2.setBefort_amount(100);
 //			order_form2.setOrder_amount(89);
@@ -51,8 +51,8 @@ public class order_formTest {
 //			order_form2.setOrder_status("1");				
 //			dao.update(order_form2);
 //			System.out.println("更新成功");
-//			
-			// 刪除，有綁FK參考表要先砍
+			
+//			 刪除，有綁FK參考表要先砍
 //			dao.delete(1);
 //			System.out.println("刪除成功");
 			

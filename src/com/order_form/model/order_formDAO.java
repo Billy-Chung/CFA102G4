@@ -15,7 +15,7 @@ public class order_formDAO  implements order_formDAO_interface{
 
 	private static final String INSERT_STMT = "insert into ORDER_FORM(gen_meb_no, pay_no, logistics_no, promot_no, befort_amount, order_amount, delivery_address, order_time, order_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 //	gen_meb_no,
-	private static final String UPDATE_STMT = "update ORDER_FORM set gen_meb_no=?, pay_no=?, logistics_no=?, promot_no=?, befort_amount=?, order_amount=?, delivery_address=?, order_time=?, order_status=? WHERE order_no";
+	private static final String UPDATE_STMT = "update ORDER_FORM set gen_meb_no=?, pay_no=?, logistics_no=?, promot_no=?, befort_amount=?, order_amount=?, delivery_address=?, order_time=?, order_status=? WHERE order_no =?";
 //  gen_meb_no=?, 
 	private static final String DELETE_STMT = "delete from ORDER_FORM where order_no=?";
 	private static final String FIND_BY_PK = "select * from ORDER_FORM where order_no=?";
