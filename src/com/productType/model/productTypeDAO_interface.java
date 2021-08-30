@@ -4,11 +4,13 @@ import java.util.List;
 
 public interface productTypeDAO_interface {
 		
-		public productTypeVO insert(productTypeVO adoptApply);
-		
-		public void update(productTypeVO adoptApply);
-
-		public productTypeVO findByproductTypeNo(Integer PRODUCT_TYPE_NO);
-		
-		public List<productTypeVO> getAllproductType();
+	public void insert(productTypeVO productType);
+	
+	public void update(productTypeVO productType);
+	
+	public void delete(Integer product_type_no);
+	
+	public productTypeVO findByPrimaryKey(Integer product_type_no);
+	
+	public List<productTypeVO> getAll();
 }

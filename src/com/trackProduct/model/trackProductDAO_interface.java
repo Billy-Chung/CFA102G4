@@ -4,12 +4,13 @@ import java.util.List;
 
 public interface trackProductDAO_interface {
 
-	public trackProductVO insert(trackProductVO trackProduct);
+	public void insert(trackProductVO trackProduct);
 	
 	public void update(trackProductVO trackProduct);
-
-	public trackProductVO findBytrackProductNo(Integer GEN_MEB_NO, Integer PRODUCT_NO);
-
-	public List<trackProductVO> getAlltrackProduct();
 	
+	public void delete(Integer gen_meb_no,Integer product_no);
+	
+	public trackProductVO findByPrimaryKey(Integer gen_meb_no,Integer product_no);
+	
+	public List<trackProductVO> getAll(); 
 }

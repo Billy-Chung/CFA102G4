@@ -5,62 +5,61 @@ import java.sql.Date;
 
 public class adoptApplyVO implements Serializable {
 	
-	private Integer ADOPT_APPLY_NO;
-	private Integer ADOPT_MEB_NO;
-	private Integer GEN_MEB_NO;
-	private Integer ADOPT_PET_NO;
-	private String ADOPT_AUDIT_STATE;
-	private String ADOPT_APPLY_PEOPLE_ID;
-	private Date ADOPT_APPLY_DATE;
-	private String ADOPT_APPLY_STATE;
+	private Integer adopt_apply_no;
+	private Integer adopt_meb_no;
+	private Integer gen_meb_no;
+	private Integer adopt_pet_no;
+	private String adopt_audit_state;
+	private String adopt_apply_people_id;
+	private Date adopt_apply_date;
+	private String adopt_apply_state;
 	
-	public Integer getADOPT_APPLY_NO() {
-		return ADOPT_APPLY_NO;
+	public Integer getAdopt_apply_no() {
+		return adopt_apply_no;
 	}
-	public void setADOPT_APPLY_NO(Integer aDOPT_APPLY_NO) {
-		ADOPT_APPLY_NO = aDOPT_APPLY_NO;
+	public void setAdopt_apply_no(Integer adopt_apply_no) {
+		this.adopt_apply_no = adopt_apply_no;
 	}
-
-	public Integer getADOPT_MEB_NO() {
-		return ADOPT_MEB_NO;
+	public Integer getAdopt_meb_no() {
+		return adopt_meb_no;
 	}
-	public void setADOPT_MEB_NO(Integer aDOPT_MEB_NO) {
-		ADOPT_MEB_NO = aDOPT_MEB_NO;
+	public void setAdopt_meb_no(Integer adopt_meb_no) {
+		this.adopt_meb_no = adopt_meb_no;
 	}
-	public Integer getGEN_MEB_NO() {
-		return GEN_MEB_NO;
+	public Integer getGen_meb_no() {
+		return gen_meb_no;
 	}
-	public void setGEN_MEB_NO(Integer gEN_MEB_NO) {
-		GEN_MEB_NO = gEN_MEB_NO;
+	public void setGen_meb_no(Integer gen_meb_no) {
+		this.gen_meb_no = gen_meb_no;
 	}
-	public Integer getADOPT_PET_NO() {
-		return ADOPT_PET_NO;
+	public Integer getAdopt_pet_no() {
+		return adopt_pet_no;
 	}
-	public void setADOPT_PET_NO(Integer aDOPT_PET_NO) {
-		ADOPT_PET_NO = aDOPT_PET_NO;
+	public void setAdopt_pet_no(Integer adopt_pet_no) {
+		this.adopt_pet_no = adopt_pet_no;
 	}
-	public String getADOPT_AUDIT_STATE() {
-		return ADOPT_AUDIT_STATE;
+	public String getAdopt_audit_state() {
+		return adopt_audit_state;
 	}
-	public void setADOPT_AUDIT_STATE(String aDOPT_AUDIT_STATE) {
-		ADOPT_AUDIT_STATE = aDOPT_AUDIT_STATE;
+	public void setAdopt_audit_state(String adopt_audit_state) {
+		this.adopt_audit_state = adopt_audit_state;
 	}
-	public String getADOPT_APPLY_PEOPLE_ID() {
-		return ADOPT_APPLY_PEOPLE_ID;
+	public String getAdopt_apply_people_id() {
+		return adopt_apply_people_id;
 	}
-	public void setADOPT_APPLY_PEOPLE_ID(String aDOPT_APPLY_PEOPLE_ID) {
-		ADOPT_APPLY_PEOPLE_ID = aDOPT_APPLY_PEOPLE_ID;
+	public void setAdopt_apply_people_id(String adopt_apply_people_id) {
+		this.adopt_apply_people_id = adopt_apply_people_id;
 	}
-	public Date getADOPT_APPLY_DATE() {
-		return ADOPT_APPLY_DATE;
+	public Date getAdopt_apply_date() {
+		return adopt_apply_date;
 	}
-	public void setADOPT_APPLY_DATE(Date aDOPT_APPLY_DATE) {
-		ADOPT_APPLY_DATE = aDOPT_APPLY_DATE;
+	public void setAdopt_apply_date(Date adopt_apply_date) {
+		this.adopt_apply_date = adopt_apply_date;
 	}
-	public String getADOPT_APPLY_STATE() {
-		return ADOPT_APPLY_STATE;
+	public String getAdopt_apply_state() {
+		return adopt_apply_state;
 	}
-	public void setADOPT_APPLY_STATE(String aDOPT_APPLY_STATE) {
-		ADOPT_APPLY_STATE = aDOPT_APPLY_STATE;
-	}
+	public void setAdopt_apply_state(String adopt_apply_state) {
+		this.adopt_apply_state = adopt_apply_state;
+	}	
 }
