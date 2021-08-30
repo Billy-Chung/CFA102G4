@@ -15,6 +15,7 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\CFA102G4_GitPush\CFA102G4"/>
 			<item value="C:\CFA102G4"/>
 			<item value="C:\Users\Tibame_T14\Desktop\新增資料夾"/>
 		</list>
