@@ -132,6 +132,8 @@
                     <p class="card-text">${AdoptPetVO.adopt_pet_gender}</p>
                     <button href="#" class="btn btn-outline-info" data-bs-toggle="modal"
                         data-bs-target="#changepet">修改詳細資訊</button>
+                    <button href="#" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#changepet2">刪除領養寵物</button>
                 </div>
             </div>
 					
@@ -149,6 +151,25 @@
                         </div>
                         <div class="modal-body">
                             寵物資料修改...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">關閉</button>
+                            <button type="button" class="btn btn-outline-success">確認並送出修改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="modal fade" id="changepet2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">修改寵物資料</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            確定要將該寵物設為已領養嗎?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">關閉</button>
