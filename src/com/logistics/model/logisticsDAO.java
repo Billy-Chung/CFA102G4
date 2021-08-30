@@ -1,6 +1,5 @@
 package com.logistics.model;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +16,9 @@ public class logisticsDAO implements logisticsDAO_interface{
 //	public static final String URL = "jdbc:mysql://localhost:3306/CFA_102_04?serverTimezone=Asia/Taipei";
 //	public static final String USER = "David";
 //	public static final String PASSWORD = "123456";
-				
+			
+	
+	
 		private static final String INSERT_STMT = "insert into LOGISTICS(logistics_no,logistics_name) values (?,?)";
 		private static final String UPDATE_STMT = "update LOGISTICS set logistics_name=? WHERE logistics_no=?";
 		private static final String DELETE_STMT = "delete from LOGISTICS where logistics_no=?";

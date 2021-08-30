@@ -7,7 +7,6 @@ private Integer	logistics_no;
 private String	logistics_name;
 
 
-
 public Integer getLogistics_no() {
 	return logistics_no;
 }
