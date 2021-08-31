@@ -115,7 +115,7 @@ public class AdoptPetServlet extends HttpServlet {
 //				收容編號
 
 				if (containNumber.trim().length() == 0) {
-					containNumber = "0000000000000000";
+					containNumber = "000000000000000";
 				} else if (!containNumber.trim().matches(adoptPetNoChinessReg)) {
 					errorMsgs.put("containNumber", "領養寵物收容編號: 只能是英文字母和數字!!");
 				}

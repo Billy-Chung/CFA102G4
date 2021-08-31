@@ -134,26 +134,38 @@
 						</FORM>
 
 						<FORM METHOD="post" ACTION="addPet.do">
-						<input type="hidden" name="adopt_pet_no"value="${AdoptPetVO.adopt_pet_no}"> 
-						<input type="hidden" name="gen_meb_no"value="${AdoptPetVO.gen_meb_no}"> 
-						<input type="hidden" name="adopt_pet_breeds"value="${AdoptPetVO.adopt_pet_breeds}"> 
-						<input type="hidden" name="adopt_pet_gender"value="${AdoptPetVO.adopt_pet_gender}"> 
-						<input type="hidden" name="adopt_pet_come_form"value="${AdoptPetVO.adopt_pet_come_form}"> 
-						<input type="hidden" name="adopt_pet_join_date"value="${AdoptPetVO.adopt_pet_join_date}"> 
-						<input type="hidden" name="adopt_pet_chip"value="${AdoptPetVO.adopt_pet_chip}"> 
-						<input type="hidden" name="adopt_pet_join_reason"value="${AdoptPetVO.adopt_pet_join_reason}"> 
-						<input type="hidden" name="capture_address"value="${AdoptPetVO.capture_address}"> 
-						<input type="hidden" name="capture_address"value="${AdoptPetVO.capture_address}"> 
-						<input type="hidden" name="contain_number"value="${AdoptPetVO.contain_number}"> 
-						<input type="hidden" name="adopt_pet_color"value="${AdoptPetVO.adopt_pet_color}"> 
-							<input type="hidden" name="adopt_pet_state"value="${AdoptPetVO.adopt_pet_state}">
-							 <input type="hidden"name="action" value="delete">
-							 <c:if test="${AdoptPetVO.adopt_pet_state == 0}">
-							<button type="submit" class="btn btn-outline-danger">修改為已領養</button>
-							 </c:if>
-							 <c:if test="${AdoptPetVO.adopt_pet_state == 1}">
-							<button type="submit" class="btn btn-outline-success">修改為未領養</button>
-							 </c:if>
+							<input type="hidden" name="adopt_pet_no"
+								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
+								name="gen_meb_no" value="${AdoptPetVO.gen_meb_no}"> <input
+								type="hidden" name="adopt_pet_breeds"
+								value="${AdoptPetVO.adopt_pet_breeds}"> <input
+								type="hidden" name="adopt_pet_gender"
+								value="${AdoptPetVO.adopt_pet_gender}"> <input
+								type="hidden" name="adopt_pet_come_form"
+								value="${AdoptPetVO.adopt_pet_come_form}"> <input
+								type="hidden" name="adopt_pet_join_date"
+								value="${AdoptPetVO.adopt_pet_join_date}"> <input
+								type="hidden" name="adopt_pet_chip"
+								value="${AdoptPetVO.adopt_pet_chip}"> <input
+								type="hidden" name="adopt_pet_join_reason"
+								value="${AdoptPetVO.adopt_pet_join_reason}"> <input
+								type="hidden" name="capture_address"
+								value="${AdoptPetVO.capture_address}"> <input
+								type="hidden" name="capture_address"
+								value="${AdoptPetVO.capture_address}"> <input
+								type="hidden" name="contain_number"
+								value="${AdoptPetVO.contain_number}"> <input
+								type="hidden" name="adopt_pet_color"
+								value="${AdoptPetVO.adopt_pet_color}"> <input
+								type="hidden" name="adopt_pet_state"
+								value="${AdoptPetVO.adopt_pet_state}"> <input
+								type="hidden" name="action" value="delete">
+							<c:if test="${AdoptPetVO.adopt_pet_state == 0}">
+								<button type="submit" class="btn btn-outline-danger">修改為已領養</button>
+							</c:if>
+							<c:if test="${AdoptPetVO.adopt_pet_state == 1}">
+								<button type="submit" class="btn btn-outline-success">修改為未領養</button>
+							</c:if>
 						</FORM>
 
 					</div>

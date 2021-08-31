@@ -160,7 +160,7 @@ public class AdoptPetDAO implements AdoptPet_interface {
 		
 		PreparedStatement pstmt = con.prepareStatement(SQL);		
 		
-		if (adoptPet.getGen_meb_no() == null) {
+		if (adoptPet.getGen_meb_no() == 0) {
 			pstmt.setNull(1, Types.NULL);
 		} else {
 			pstmt.setInt(1, adoptPet.getGen_meb_no());
