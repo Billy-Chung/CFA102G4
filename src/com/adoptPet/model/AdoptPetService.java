@@ -38,8 +38,7 @@ public class AdoptPetService {
 			String adopt_pet_come_form, Date adopt_pet_join_date, String adopt_pet_chip, String adopt_pet_join_reason,
 			String capture_address, String adopt_pet_sterilization, String contain_number, String adopt_pet_color,
 			String adopt_pet_state, Integer adopt_pet_no) {
-		AdoptPetVO adoptPet = new AdoptPetVO();
-
+		AdoptPetVO adoptPet = new AdoptPetVO();	
 		adoptPet.setGen_meb_no(gen_meb_no);
 		adoptPet.setAdopt_pet_breeds(adopt_pet_breeds);
 		adoptPet.setAdopt_pet_gender(adopt_pet_gender);
@@ -53,7 +52,6 @@ public class AdoptPetService {
 		adoptPet.setAdopt_pet_color(adopt_pet_color);
 		adoptPet.setAdopt_pet_state(adopt_pet_state);
 		adoptPet.setAdopt_pet_no(adopt_pet_no);
-
 		dao.update(adoptPet);
 	}
 

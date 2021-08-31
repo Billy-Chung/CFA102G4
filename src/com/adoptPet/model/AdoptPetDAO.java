@@ -176,7 +176,7 @@ public class AdoptPetDAO implements AdoptPet_interface {
 		pstmt.setString(10, adoptPet.getContain_number());
 		pstmt.setString(11, adoptPet.getAdopt_pet_color());
 		pstmt.setString(12, adoptPet.getAdopt_pet_state());
-		pstmt.setInt(13, adoptPet.getAdopt_meb_no());
+		pstmt.setInt(13, adoptPet.getAdopt_pet_no());
 		return pstmt;
 	}
 

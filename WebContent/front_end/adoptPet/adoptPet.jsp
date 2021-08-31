@@ -124,57 +124,41 @@
 					<div class="card-body">
 						<h5 class="card-title">${AdoptPetVO.adopt_pet_breeds}</h5>
 						<p class="card-text">${AdoptPetVO.adopt_pet_gender}</p>
-						<button href="#" class="btn btn-outline-info"
-							data-bs-toggle="modal" data-bs-target="#changepet">修改詳細資訊</button>
-						<button href="#" class="btn btn-outline-danger"
-							data-bs-toggle="modal" data-bs-target="#changepet2">刪除領養寵物</button>
+
+
+						<FORM METHOD="post" ACTION="addPet.do">
+							<input type="hidden" name="adoptPetNo"
+								value="${AdoptPetVO.adopt_pet_no}"> <input type="hidden"
+								name="action" value="getOne_For_Update">
+							<button type="submit" class="btn btn-outline-info">修改詳細資訊</button>
+						</FORM>
+
+						<FORM METHOD="post" ACTION="addPet.do">
+						<input type="hidden" name="adopt_pet_no"value="${AdoptPetVO.adopt_pet_no}"> 
+						<input type="hidden" name="gen_meb_no"value="${AdoptPetVO.gen_meb_no}"> 
+						<input type="hidden" name="adopt_pet_breeds"value="${AdoptPetVO.adopt_pet_breeds}"> 
+						<input type="hidden" name="adopt_pet_gender"value="${AdoptPetVO.adopt_pet_gender}"> 
+						<input type="hidden" name="adopt_pet_come_form"value="${AdoptPetVO.adopt_pet_come_form}"> 
+						<input type="hidden" name="adopt_pet_join_date"value="${AdoptPetVO.adopt_pet_join_date}"> 
+						<input type="hidden" name="adopt_pet_chip"value="${AdoptPetVO.adopt_pet_chip}"> 
+						<input type="hidden" name="adopt_pet_join_reason"value="${AdoptPetVO.adopt_pet_join_reason}"> 
+						<input type="hidden" name="capture_address"value="${AdoptPetVO.capture_address}"> 
+						<input type="hidden" name="capture_address"value="${AdoptPetVO.capture_address}"> 
+						<input type="hidden" name="contain_number"value="${AdoptPetVO.contain_number}"> 
+						<input type="hidden" name="adopt_pet_color"value="${AdoptPetVO.adopt_pet_color}"> 
+							<input type="hidden" name="adopt_pet_state"value="${AdoptPetVO.adopt_pet_state}">
+							 <input type="hidden"name="action" value="delete">
+							 <c:if test="${AdoptPetVO.adopt_pet_state == 0}">
+							<button type="submit" class="btn btn-outline-danger">修改為已領養</button>
+							 </c:if>
+							 <c:if test="${AdoptPetVO.adopt_pet_state == 1}">
+							<button type="submit" class="btn btn-outline-success">修改為未領養</button>
+							 </c:if>
+						</FORM>
+
 					</div>
 				</div>
-
 			</c:forEach>
-
-
-			<!-- 寵物modal -->
-			<div class="modal fade" id="changepet" data-bs-backdrop="static"
-				data-bs-keyboard="false" tabindex="-1"
-				aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog modal-xl">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">修改寵物資料</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">寵物資料修改...</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-outline-danger"
-								data-bs-dismiss="modal">關閉</button>
-							<button type="button" class="btn btn-outline-success">確認並送出修改</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="modal fade" id="changepet2" data-bs-backdrop="static"
-				data-bs-keyboard="false" tabindex="-1"
-				aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				<div class="modal-dialog modal-xl">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">修改寵物資料</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">確定要將該寵物設為已領養嗎?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-outline-danger"
-								data-bs-dismiss="modal">關閉</button>
-							<button type="button" class="btn btn-outline-success">確認並送出修改</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
 		</div>
 
 	</div>
