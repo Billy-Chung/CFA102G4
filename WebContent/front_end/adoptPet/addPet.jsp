@@ -6,16 +6,6 @@
 	// EmpVO empVO = (EmpVO) request.getAttribute("empVO");
 %>
 
-<html>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>員工資料新增 - addEmp.jsp</title>
-
-</head>
-<body>
-
-
-
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -25,9 +15,7 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-
-	<FORM METHOD="post" ACTION="emp.do" name="form1">
-		
+	
 		<input type="hidden" name="adopt_meb_no" value="1">
 		<div>${errorMsgs.ename}</div>
 
@@ -59,7 +47,7 @@
 		</div>
 
 		<div class="form-floating mb-3">
-			<input type="Date" class="form-control" name="adopt_pet_breeds"
+			<input type="Date" class="form-control" name="adopt_pet_join_date"
 				placeholder="name@example.com"> <label for="floatingInput">入所日期</label>
 			<div>${errorMsgs.ename}</div>
 		</div>
@@ -78,7 +66,7 @@
 				for="floatingInput">進所原因</label>
 			<div>${errorMsgs.ename}</div>
 		</div>
-		
+
 
 		<div class="form-floating mb-3">
 			<input type="text" class="form-control" name="capture_address"
@@ -111,11 +99,12 @@
 
 		<input type="hidden" name="adopt_pet_state" value="0">
 		<div>${errorMsgs.ename}</div>
+		
+		<input type="hidden" name="action" value="addPet">
 
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-danger"
+				data-bs-dismiss="modal">關閉</button>
+			<button type="submit" class="btn btn-outline-success">新增</button>
+		</div>	
 
-		 <button type="submit" class="btn btn-outline-success">新增</button>
-	</FORM>
-	
-</body>
-
-</html>
