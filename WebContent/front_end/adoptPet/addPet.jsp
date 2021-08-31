@@ -65,7 +65,6 @@
 		placeholder="name@example.com"
 		value="<%=(adoptPet == null) ? "" : adoptPet.getAdopt_pet_join_reason()%>">
 	<label for="floatingInput">進所原因</label>
-	<div>${errorMsgs.ename}</div>
 </div>
 
 

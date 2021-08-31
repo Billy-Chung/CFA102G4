@@ -24,7 +24,8 @@
   <servlet-mapping>
   	<servlet-name>AdoptPet</servlet-name>
   	<url-pattern>/front_end/adoptPet/addPet.do</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
+ 
   
   
 </web-app>
