@@ -2,9 +2,6 @@ package com.order_form.model;
 
 import java.util.List;
 
-import com.promotions.model.promotionsDAO;
-import com.promotions.model.promotionsDAO_interface;
-import com.promotions.model.promotionsVO;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
